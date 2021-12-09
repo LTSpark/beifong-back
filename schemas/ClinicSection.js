@@ -2,7 +2,7 @@ const { Schema, model } = require("mongoose");
 
 const positions = ["left", "right"];
 
-const ClinicDescriptionSchema = Schema({
+const ClinicSectionSchema = Schema({
     title: {
         type: String,
         required: [true, "Title is required"]
@@ -23,4 +23,4 @@ const ClinicDescriptionSchema = Schema({
     }
 });
 
-module.exports = ClinicDescriptionSchema;
+module.exports = ClinicSectionSchema;

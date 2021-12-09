@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const ClinicPaymentSchema = require('./ClinicPayment');
-const ClinicDescriptionSchema = require('./ClinicDescription');
+const ClinicSectionSchema = require('./ClinicSection');
 const AccesibilityConfigSchema = require('./AccesibilityConfig');
 
 const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
@@ -68,8 +68,8 @@ const ClinicSchema = Schema({
         minLength: 25,
         maxLength: 200
     },
-    descriptions: [
-        ClinicDescriptionSchema
+    sections: [
+        ClinicSectionSchema
     ],
     medics: [
         {

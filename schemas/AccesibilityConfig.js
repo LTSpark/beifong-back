@@ -19,9 +19,13 @@ const AccesibilityConfigSchema = Schema({
     },
     fontSize: {
         type: Number,
-        min: 0,
-        max: 100,
-        default: 40
+        min: 10,
+        max: 50,
+        default: 25
+    },
+    visualDisease: {
+        type: String,
+        required: true
     }
 });
 

@@ -16,7 +16,7 @@ class Server{
         //middlewares
         this.middlewares();
         //application routes
-        //this.routes();
+        this.routes();
 
     }
 
@@ -25,7 +25,6 @@ class Server{
     }
 
     middlewares(){
-
         //CORS
         this.app.use(cors());
 

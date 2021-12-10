@@ -45,9 +45,8 @@ const ClinicSchema = Schema({
         type: Boolean,
         default: false
     },
-    statePayment: {
-        type: Boolean,
-        default: false
+    subscriptionPaymentExpires: {
+        type: Date
     },
     payments: [ 
         ClinicPaymentSchema

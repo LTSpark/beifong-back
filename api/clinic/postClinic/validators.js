@@ -9,7 +9,7 @@ const PostClinicValidators = [
         'password',
         'Password has to contain one digit, one lower, one upper and has to be eight characters long'
     )
-    .matches(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/),
+    .matches(/^(?=.*\d)(?=.*[a-zñ])(?=.*[A-ZÑ])[0-9a-zA-ZñÑ]{8,}$/),
     body('email', 'Invalid email').isEmail().trim(),
     body('telephone').isMobilePhone(['es-PE']).trim(),
     body('direction').notEmpty().trim(),

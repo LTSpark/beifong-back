@@ -3,8 +3,8 @@ module.exports = {
 		openapi: "3.0.0",
 		info: {
 			title: "Beifong API",
-			version: "0.0.1",
-			description: "REST API Documentation for Beifong Backend",
+			version: "0.0.2",
+			description: "REST API for Beifong Project, clinic management with focus on accesibility. Made with Express.js and MongoDB",
 		},
 		servers: [
 			{

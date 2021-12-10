@@ -79,7 +79,10 @@ const ClinicSchema = Schema({
             ref: 'ClinicalAppointment'
         }
     ],
-    accesibilityConfig: AccesibilityConfigSchema,
+    accesibilityConfig: {
+        type: AccesibilityConfigSchema,
+        default: () => ({})
+    },
     createdAt: {
         type: Date,
         default: Date.now()

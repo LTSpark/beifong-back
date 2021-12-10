@@ -14,7 +14,15 @@ const clinicEmailExists = async email => {
     }
 }
 
+const clinicIdExists = async _id => {
+    const clinicIdExists = await Clinic.findById({ _id }).exec();
+    if(!clinicIdExists){
+        throw new Error(`Clinic with  id ${_id} not exists on database`);
+    }
+}
+
 module.exports = {
     clinicNameExists,
     clinicEmailExists,
+    clinicIdExists
 }

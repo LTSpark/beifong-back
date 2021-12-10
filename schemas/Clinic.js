@@ -91,4 +91,10 @@ const ClinicSchema = Schema({
     }
 });
 
+ClinicSchema.methods.toJSON = function() {
+    const { __v, _id, ...clinic } = this.toObject();
+    clinic.clinicId = _id;
+    return clinic;
+}
+
 module.exports = model('Clinic', ClinicSchema);

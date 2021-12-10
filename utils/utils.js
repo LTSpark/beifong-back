@@ -6,11 +6,11 @@ const encryptPassword = password => {
     return bcryptjs.hashSync(password, salt);
 }
 
-const generateJWT = id => {
+const generateJWT = ( id, key, expirationDate ) => {
     return new Promise((resolve, reject) => {
         const payload = { id };
-        jwt.sign(payload, process.env.SECRET_KEY, {
-            expiresIn: process.env.EXPIRATION_DATE
+        jwt.sign(payload, key, {
+            expiresIn: expirationDate
         }, (err, token) => {
             if (err) {
                 reject("Couldn't generate token");

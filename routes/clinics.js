@@ -3,6 +3,9 @@ const { Router } = require('express');
 const postClinicFlow = require('../api/clinic/postClinic/flow');
 const postClinicValidators = require('../api/clinic/postClinic/validators');
 
+const VerifyClinicFlow = require('../api/clinic/verifyClinic/flow');
+const VerifyClinicValidators = require('../api/clinic/verifyClinic/validators');
+
 const router = Router();
 
 /**
@@ -55,6 +58,18 @@ const router = Router();
  *                  ok: true
  *                  msg: Clinic creation done! Please check your email
  *                  clinicId: 61b2b2df969e14057e3837dc
+ *          VerifyClinicResponse:
+ *              type: Object
+ *              properties:
+ *                  ok:
+ *                      type: boolean
+ *                      description: indicates if operation was done correctly
+ *                  msg:
+ *                      type: string
+ *                      description: information about operation perfomed
+ *              example:
+ *                  ok: true
+ *                  msg: Clinic verified!
  */
 
 /**
@@ -81,5 +96,32 @@ const router = Router();
  *                  description: Internal server error - Failed database connection
 */
 router.post('/', postClinicValidators, postClinicFlow);
+
+/**
+ * @swagger
+ * /clinics/verify:
+ *      put:
+ *          summary: Token-based verification for clinic accounts
+ *          tags: [Clinic]
+ *          parameters:
+ *                - in: query
+ *                  name: token
+ *                  schema:
+ *                      type: string
+ *                  required: true
+ *                  description: verification token
+ *          responses:
+ *              200:
+ *                  description: clinic account verified
+ *                  content:
+ *                      application/json:
+ *                          $ref: '#/components/schemas/VerifyClinicResponse'
+ *              500:
+ *                  description: internal server error - invalid verification
+ *              400:
+ *                  description: token does not exist or is not a jwt                 
+ *              
+ */
+router.put('/verify', VerifyClinicValidators, VerifyClinicFlow);
 
 module.exports = router;

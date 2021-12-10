@@ -3,6 +3,12 @@ const router  = express.Router();
 
 const clinics = require('./clinics');
 
+/**
+ * @swagger
+ * tags:
+ *    name: Clinic
+ *    description: API to manage clinic operations
+*/
 router.use('/clinics', clinics);
 
 //The 404 Route (ALWAYS Keep this as the last route)

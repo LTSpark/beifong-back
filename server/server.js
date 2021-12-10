@@ -1,6 +1,8 @@
 const express = require('express');
 const cors = require('cors');
 const fileUpload = require('express-fileupload');
+const swaggerJsdoc = require("swagger-jsdoc");
+const swaggerUi = require("swagger-ui-express");
 
 const databaseConnection = require('./database');
 
@@ -17,6 +19,8 @@ class Server{
         this.middlewares();
         //application routes
         this.routes();
+        //swagger documentation
+        this.swagger();
 
     }
 
@@ -37,6 +41,11 @@ class Server{
             limits: { fileSize: 50 * 1024 * 1024 },
         }));
 
+    }
+
+    swagger(){
+        const specs = swaggerJsdoc(require('./swaggerOptions'));
+        this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
     }
 
     routes(){

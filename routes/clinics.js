@@ -39,6 +39,22 @@ const router = Router();
  *                  password: Contraseña123
  *                  direction: Av. Las Palmeras 196 Los Olivos
  *                  telephone: 999999999
+ *          PostClinicResponse:
+ *              type: Object
+ *              properties:
+ *                  ok:
+ *                      type: boolean
+ *                      description: indicates if operation was done correctly
+ *                  msg:
+ *                      type: string
+ *                      description: information about operation perfomed
+ *                  clinicId:
+ *                      type: string
+ *                      description: database id of created clinic
+ *              example:
+ *                  ok: true
+ *                  msg: Clinic creation done! Please check your email
+ *                  clinicId: 61b2b2df969e14057e3837dc
  */
 
 /**
@@ -56,6 +72,9 @@ const router = Router();
  *          responses:
  *              201:
  *                  description: Creates a new clinic and sends verification email
+ *                  content:
+ *                      application/json:
+ *                          $ref: '#/components/schemas/PostClinicResponse'
  *              400:
  *                  description: Name already exists, email already exists, invalid password, etc
  *              500:

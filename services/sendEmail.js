@@ -1,6 +1,6 @@
 const nodemailer = require('nodemailer');
 
-const sendEmail = ( template, email ) => {
+const sendEmail = async ( template, email ) => {
 
     let transporter = nodemailer.createTransport({
         host: 'smtp.gmail.com',
@@ -15,8 +15,8 @@ const sendEmail = ( template, email ) => {
         }
     });
 
-    let info = transporter.sendMail({
-        from: `"RestCafe" <${process.env.EMAIL}>`, // sender address,
+    let info = await transporter.sendMail({
+        from: `"Beifong" <${process.env.EMAIL}>`, // sender address,
         to: email,
         subject: 'Email Authentication',
         html: template

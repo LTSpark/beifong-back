@@ -25,7 +25,7 @@ const AccesibilityConfigSchema = Schema({
     },
     visualDisease: {
         type: String,
-        required: true
+        default: 'healthy-vision'
     }
 });
 

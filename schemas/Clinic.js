@@ -19,9 +19,6 @@ const ClinicSchema = Schema({
     },
     password: {
         type: String,
-        maxLength: 30,
-        minLength: 8,
-        match: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
         required: [ true, 'Password is required' ]
     },
     telephone: {
@@ -93,5 +90,11 @@ const ClinicSchema = Schema({
         default: Date.now()
     }
 });
+
+ClinicSchema.methods.toJSON = function() {
+    const { __v, _id, ...clinic } = this.toObject();
+    clinic.clinicId = _id;
+    return clinic;
+}
 
 module.exports = model('Clinic', ClinicSchema);

@@ -3,6 +3,9 @@ const { Router } = require('express');
 const postClinicFlow = require('../api/clinic/postClinic/flow');
 const postClinicValidators = require('../api/clinic/postClinic/validators');
 
+const ResendEmailClinicFlow = require('../api/clinic/resendEmailClinic/flow');
+const ResendEmailClinicValidators = require('../api/clinic/resendEmailClinic/validators');
+
 const VerifyClinicFlow = require('../api/clinic/verifyClinic/flow');
 const VerifyClinicValidators = require('../api/clinic/verifyClinic/validators');
 
@@ -99,6 +102,34 @@ router.post('/', postClinicValidators, postClinicFlow);
 
 /**
  * @swagger
+ * /clinics/resend:
+ *      put:
+ *          summary: Token-based verification for clinic accounts
+ *          tags: [Clinic]
+ *          parameters:
+ *                - in: query
+ *                  name: token
+ *                  schema:
+ *                      type: string
+ *                  required: true
+ *                  description: verification token
+ *          responses:
+ *              200:
+ *                  description: clinic account verified
+ *                  content:
+ *                      application/json:
+ *                          $ref: '#/components/schemas/VerifyClinicResponse'
+ *              500:
+ *                  description: internal server error - invalid verification
+ *              400:
+ *                  description: token does not exist or is not a jwt                 
+ *              
+ */
+ router.post('/resendEmail', ResendEmailClinicValidators, ResendEmailClinicFlow);
+
+
+/**
+ * @swagger
  * /clinics/verify:
  *      put:
  *          summary: Token-based verification for clinic accounts
@@ -123,5 +154,6 @@ router.post('/', postClinicValidators, postClinicFlow);
  *              
  */
 router.put('/verify', VerifyClinicValidators, VerifyClinicFlow);
+
 
 module.exports = router;

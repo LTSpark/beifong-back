@@ -40,7 +40,7 @@ const PostClinicFlow = async ( req, res ) => {
     }
     catch(error) {
         console.error(error);
-        return errorResponse(res, "Clinic creation failed", err.message); 
+        return errorResponse(res, "Clinic creation failed", error.message); 
     }
 
 }

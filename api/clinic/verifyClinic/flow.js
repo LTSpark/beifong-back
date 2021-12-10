@@ -11,8 +11,8 @@ const VerifyClinicFlow = async ( req, res ) => {
         return customResponse(res, "Clinic verified!", 201);
     }
     catch(error){
-        console.log(error);
-        return errorResponse(res,"Verifying failed: contact administrator", error, 500);
+        console.error(error);
+        return errorResponse(res,"Verifying failed: contact administrator", error.message, 500);
     }
 }
 

@@ -45,7 +45,7 @@ class Server{
 
     swagger(){
         const specs = swaggerJsdoc(require('./swaggerOptions'));
-        this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs, { explorer: true }));
+        this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
     }
 
     routes(){

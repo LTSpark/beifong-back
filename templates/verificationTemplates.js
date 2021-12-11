@@ -20,7 +20,7 @@ const clinicVerificationTemplate = async ( id, name ) => {
         <h2>Enlace de verificación</h2>
         <p>${token}</p>
         <small>Enlace válido por una hora</small><br/>
-        <small>AB SOFTWARE &copy;${year}</small>
+        <small>BEIFONG &copy;${year}</small>
     `;
 
 }

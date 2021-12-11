@@ -16,7 +16,7 @@ const clinicEmailExists = async email => {
     }
 }
 
-const alreadyVerifiedClinic = async token => {
+const alreadyVerifiedClinicToken = async token => {
     const { id } = jwt.verify( token, process.env.VERIFY_KEY);
     const { verified } = await Clinic.findById(id).exec();
     if( verified ) {
@@ -27,5 +27,5 @@ const alreadyVerifiedClinic = async token => {
 module.exports = {
     clinicNameExists,
     clinicEmailExists,
-    alreadyVerifiedClinic
+    alreadyVerifiedClinicToken
 }

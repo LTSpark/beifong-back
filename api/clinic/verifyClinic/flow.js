@@ -1,14 +1,28 @@
 const jwt=require('jsonwebtoken');
+
 const Clinic = require('../../../schemas/Clinic');
 
-const { customResponse, errorResponse } = require('../../../utils/responses');
+const { generateJWT } = require('../../../utils/utils');
+const { errorResponse } = require('../../../utils/responses');
 
 const VerifyClinicFlow = async ( req, res ) => {
-    const { token } = req.query;
+
+    const { token : verifyToken } = req.query;
+
     try{
-        const { id } = jwt.verify(token, process.env.VERIFY_KEY);
+
+        const { id } = jwt.verify(verifyToken, process.env.VERIFY_KEY);
         await Clinic.findByIdAndUpdate( id, { verified: true, updatedAt: Date.now() }).exec();
-        return customResponse(res, "Clinic verified!", 201);
+
+        // Create token
+        const token = await generateJWT(id, process.env.CLINIC_KEY, process.env.EXPIRATION_DATE);
+
+        return res.status(201).json({
+            ok: true,
+            msg: "Clinic verified successfullly!",
+            token: token
+        });
+
     }
     catch(error){
         console.error(error);

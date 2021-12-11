@@ -11,10 +11,7 @@ const ResendEmailClinicFlow = async ( req, res ) => {
 
     try {
 
-        const { name, email, verified } = await Clinic.findById(clinicId).exec();
-        if (verified) {
-            return customErrorResponse(res, "Clinic already verified");
-        }
+        const { name, email } = await Clinic.findById(clinicId).exec();
 
         // Create template email and send it to clinic
         const template = await clinicVerificationTemplate(clinicId, name);

@@ -23,6 +23,13 @@ const clinicIdExists = async id => {
     }
 }
 
+const alreadyVerifiedClinic = async id => {
+    const clinic = await Clinic.findById(id).exec();
+    if(clinic.verified){
+        throw new Error(`Clinic with ${id} id is already verified on database`);
+    }
+}
+
 const alreadyVerifiedClinicToken = async token => {
     const { id } = jwt.verify( token, process.env.VERIFY_KEY);
     const { verified } = await Clinic.findById(id).exec();
@@ -35,5 +42,6 @@ module.exports = {
     clinicNameExists,
     clinicEmailExists,
     clinicIdExists,
+    alreadyVerifiedClinic,
     alreadyVerifiedClinicToken
 }

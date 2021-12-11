@@ -1,12 +1,11 @@
 const { body } = require('express-validator');
 
-const { fieldValidation } = require('../../../middlewares/fieldValidation');
 const { clinicIdExists } = require('../../../middlewares/clinicValidators');
+const { fieldValidation } = require('../../../middlewares/fieldValidation');
 
 const ResendEmailClinicValidators = [
-    body('clinicId').notEmpty(),
-    body('clinicId').custom(clinicIdExists),
     body('clinicId').isMongoId(),
+    body('clinicId').custom(clinicIdExists),
     fieldValidation
 ];
 

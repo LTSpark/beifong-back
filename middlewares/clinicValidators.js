@@ -10,14 +10,14 @@ const clinicNameExists = async name => {
 const clinicEmailExists = async email => {
     const clinicEmailExists = await Clinic.findOne({ email }).exec();
     if(clinicEmailExists){
-        throw new Error(`Clinic with ${email} already exists on database, select another name`);
+        throw new Error(`Clinic with ${email} already exists on database, select another email`);
     }
 }
 
-const clinicIdExists = async _id => {
-    const clinicIdExists = await Clinic.findById({ _id }).exec();
+const clinicIdExists = async id => {
+    const clinicIdExists = await Clinic.findById(id).exec();
     if(!clinicIdExists){
-        throw new Error(`Clinic with  id ${_id} not exists on database`);
+        throw new Error(`Clinic with id ${id} not exists on database`);
     }
 }
 

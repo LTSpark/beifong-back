@@ -147,7 +147,7 @@ router.post('/', postClinicValidators, postClinicFlow);
  *                      application/json:
  *                          $ref: '#/components/schemas/ResendEmailClinicResponse'
  */
- router.post('/resendEmail', ResendEmailClinicValidators, ResendEmailClinicFlow);
+ router.post('/resend', ResendEmailClinicValidators, ResendEmailClinicFlow);
 
 
 /**

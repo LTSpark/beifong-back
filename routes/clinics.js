@@ -98,9 +98,12 @@ const router = Router();
  *                  msg:
  *                      type: string
  *                      description: information about operation perfomed
+ *                  token:
+ *                      type: string
  *              example:
  *                  ok: true
  *                  msg: Clinic verified!
+ *                  token: token
  */
 
 /**

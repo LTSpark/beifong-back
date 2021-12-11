@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+
 const Clinic = require('../schemas/Clinic');
 
 const clinicNameExists = async name => {
@@ -21,8 +23,17 @@ const clinicIdExists = async id => {
     }
 }
 
+const alreadyVerifiedClinicToken = async token => {
+    const { id } = jwt.verify( token, process.env.VERIFY_KEY);
+    const { verified } = await Clinic.findById(id).exec();
+    if( verified ) {
+        throw new Error(`Clinic with ${id} id is already verified on database`);
+    }
+}
+
 module.exports = {
     clinicNameExists,
     clinicEmailExists,
-    clinicIdExists
+    clinicIdExists,
+    alreadyVerifiedClinicToken
 }

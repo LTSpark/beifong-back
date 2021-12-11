@@ -4,14 +4,11 @@ const { sendEmail } = require('../../../services/sendEmail');
 const { clinicVerificationTemplate } = require('../../../templates/verificationTemplates');
 
 const { encryptPassword } = require('../../../utils/utils');
-const { AccesibilityConfigDefaultFactory } = require('../../../utils/factories');
 const { errorResponse } = require('../../../utils/responses');
 
 const PostClinicFlow = async ( req, res ) => {
 
-    const { name, email, telephone, direction, password } = req.body;
-    const accesibilityConfig = AccesibilityConfigDefaultFactory(); // Set default accesbility
-    
+    const { name, email, telephone, direction, password } = req.body;   
     const hashedPassword = encryptPassword(password);
 
     const clinic = new Clinic({
@@ -19,8 +16,7 @@ const PostClinicFlow = async ( req, res ) => {
         email,
         telephone,
         password: hashedPassword,
-        direction,
-        accesibilityConfig
+        direction
     });
     
     try {
@@ -40,7 +36,7 @@ const PostClinicFlow = async ( req, res ) => {
     }
     catch(error) {
         console.error(error);
-        return errorResponse(res, "Clinic creation failed", err.message); 
+        return errorResponse(res, "Clinic creation failed", error.message); 
     }
 
 }

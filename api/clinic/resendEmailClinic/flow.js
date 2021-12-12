@@ -3,7 +3,7 @@ const Clinic = require('../../../schemas/Clinic');
 const { sendEmail } = require('../../../services/sendEmail');
 const { clinicVerificationTemplate } = require('../../../templates/verificationTemplates');
 
-const { errorResponse, customResponse, customErrorResponse } = require('../../../utils/responses');
+const { errorResponse, customResponse } = require('../../../utils/responses');
 
 const ResendEmailClinicFlow = async ( req, res ) => {
 

@@ -1,7 +1,7 @@
 const { Router } = require('express');
 
-const postClinicFlow = require('../api/clinic/postClinic/flow');
-const postClinicValidators = require('../api/clinic/postClinic/validators');
+const PostClinicFlow = require('../api/clinic/postClinic/flow');
+const PostClinicValidators = require('../api/clinic/postClinic/validators');
 
 const ResendEmailClinicFlow = require('../api/clinic/resendEmailClinic/flow');
 const ResendEmailClinicValidators = require('../api/clinic/resendEmailClinic/validators');
@@ -129,7 +129,7 @@ const router = Router();
  *              500:
  *                  description: Internal server error - Failed database connection
 */
-router.post('/', postClinicValidators, postClinicFlow);
+router.post('/', PostClinicValidators, PostClinicFlow);
 
 /**
  * @swagger

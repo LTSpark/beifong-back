@@ -1,7 +1,7 @@
 const { body } = require('express-validator');
 
 const { fieldValidation } = require('../../../middlewares/fieldValidation');
-const { clinicNameExists, clinicEmailExists } = require('../../../middlewares/clinicValidators');
+const { uniqueClinicEmail,uniqueClinicName } = require('../../../middlewares/clinicValidators');
 
 const PostClinicValidators = [
     body('name').notEmpty().trim(),
@@ -13,8 +13,8 @@ const PostClinicValidators = [
     body('email', 'Invalid email').isEmail().trim(),
     body('telephone').isMobilePhone(['es-PE']).trim(),
     body('direction').notEmpty().trim(),
-    body('name').custom(clinicNameExists),
-    body('email').custom(clinicEmailExists),
+    body('name').custom(uniqueClinicName),
+    body('email').custom(uniqueClinicEmail),
     fieldValidation
 ];
 

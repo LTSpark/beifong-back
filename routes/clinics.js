@@ -9,6 +9,9 @@ const ResendEmailClinicValidators = require('../api/clinic/resendEmailClinic/val
 const VerifyClinicFlow = require('../api/clinic/verifyClinic/flow');
 const VerifyClinicValidators = require('../api/clinic/verifyClinic/validators');
 
+const LoginClinicFlow = require('../api/clinic/loginClinic/flow');
+const LoginClinicValidators = require('../api/clinic/loginClinic/validators');
+
 const router = Router();
 
 /**
@@ -61,7 +64,6 @@ const router = Router();
  *                  ok: true
  *                  msg: Clinic creation done! Please check your email
  *                  clinicId: 61b2b2df969e14057e3837dc
- * 
  *          ResendEmailClinic:
  *              type: Object
  *              required:
@@ -89,7 +91,7 @@ const router = Router();
  *                  msg: Clinic creation message resend! Please check your email
  *                  clinicId: 61b2b2df969e14057e3837dc
  * 
- *          VerifyClinicResponse:
+ *          TokenClinicResponse:
  *              type: Object
  *              properties:
  *                  ok:
@@ -102,8 +104,20 @@ const router = Router();
  *                      type: string
  *              example:
  *                  ok: true
- *                  msg: Clinic verified!
+ *                  msg: Response message
  *                  token: token
+ *          LoginClinic:
+ *              type: Object
+ *              properties:
+ *                  email:
+ *                      type: string
+ *                      description: clinic email
+ *                  password:
+ *                      type: string
+ *                      description: clinic password
+ *              example:
+ *                  email: "test@email.com"
+ *                  password: "12345"
  */
 
 /**
@@ -171,7 +185,7 @@ router.post('/', PostClinicValidators, PostClinicFlow);
  *                  description: clinic account verified
  *                  content:
  *                      application/json:
- *                          $ref: '#/components/schemas/VerifyClinicResponse'
+ *                          $ref: '#/components/schemas/TokenClinicResponse'
  *              500:
  *                  description: internal server error - invalid verification
  *              400:
@@ -179,6 +193,35 @@ router.post('/', PostClinicValidators, PostClinicFlow);
  *              
  */
 router.put('/verify', VerifyClinicValidators, VerifyClinicFlow);
+
+
+/**
+ * @swagger
+ * /clinics/login:
+ *      post:
+ *          summary: Token-base authentication for clinics to access the system
+ *          tags: [Clinic]
+ *          requestBody:
+ *              required: true
+ *              content:
+ *                  application/json:
+ *                      schema:
+ *                          $ref: '#/components/schemas/LoginClinic'
+ *          responses:
+ *              200:
+ *                  description: clinic auth
+ *                  content:
+ *                      application/json:
+ *                          $ref: '#/components/schemas/TokenClinicResponse'
+ *              400:
+ *                  description: clinic not found, email does not exist
+ *              401:
+ *                  description: invalid password, access is not allowed
+ *              500:
+ *                  description: internal server error
+ *              
+ */
+router.post('/login', LoginClinicValidators, LoginClinicFlow);
 
 
 module.exports = router;

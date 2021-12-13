@@ -2,21 +2,21 @@ const jwt = require('jsonwebtoken');
 
 const Clinic = require('../schemas/Clinic');
 
-const clinicNameExists = async name => {
+const uniqueClinicName = async name => {
     const clinic = await Clinic.findOne({ name }).exec();
     if(clinic){
         throw new Error(`Clinic with ${name} already exists on database, select another name`);
     }
 }
 
-const clinicEmailExists = async email => {
+const uniqueClinicEmail = async email => {
     const clinic = await Clinic.findOne({ email }).exec();
     if(clinic){
         throw new Error(`Clinic with ${email} already exists on database, select another email`);
     }
 }
 
-const clinicIdExists = async id => {
+const clinicExists = async id => {
     const clinic = await Clinic.findById(id).exec();
     if(!clinic){
         throw new Error(`Clinic with id ${id} not exists on database`);
@@ -38,10 +38,18 @@ const alreadyVerifiedClinicToken = async token => {
     }
 }
 
+const clinicEmailExists = async email => {
+    const clinic = await Clinic.findOne({ email }).exec();
+    if(!clinic){
+        throw new Error(`Clinic not found`);
+    }
+}
+
 module.exports = {
-    clinicNameExists,
-    clinicEmailExists,
-    clinicIdExists,
+    uniqueClinicName,
+    uniqueClinicEmail,
+    clinicExists,
     alreadyVerifiedClinic,
-    alreadyVerifiedClinicToken
+    alreadyVerifiedClinicToken,
+    clinicEmailExists,
 }

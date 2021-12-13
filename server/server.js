@@ -21,6 +21,8 @@ class Server{
         this.routes();
         //swagger documentation
         this.swagger();
+        //static content
+        this.serveStatic();
 
     }
 
@@ -41,6 +43,10 @@ class Server{
             limits: { fileSize: 50 * 1024 * 1024 },
         }));
 
+    }
+
+    serveStatic(){
+        this.app.use(express.static('public'));
     }
 
     swagger(){

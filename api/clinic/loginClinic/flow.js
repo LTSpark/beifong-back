@@ -12,7 +12,7 @@ const LoginClinicFlow = async (req, res) => {
     try {
         
         const clinic = await Clinic.findOne({ email }).exec();
-        if(bcryptjs.compareSync(password, clinic.password)){
+        if(!bcryptjs.compareSync(password, clinic.password)){
             return customErrorResponse(res, "Invalid password", 401);
         }
 

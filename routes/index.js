@@ -2,7 +2,7 @@ const express = require('express');
 const router  = express.Router();
 
 const clinics = require('./clinics');
-
+const clinic = require('./clinic');
 /**
  * @swagger
  * tags:
@@ -10,6 +10,7 @@ const clinics = require('./clinics');
  *    description: API to manage clinic operations
 */
 router.use('/clinics', clinics);
+router.use('/clinic', clinic);
 
 //The 404 Route (ALWAYS Keep this as the last route)
 router.use('*', (_, res) => {

@@ -19,6 +19,10 @@ module.exports = {
 				url: "http://localhost:3000/api",
 				description: "Development",
 			},
+			{
+				url: "https://beifong-back.herokuapp.com/api",
+				description: "production",
+			}
 		],
 	},
 	apis: ["./routes/*.js"],

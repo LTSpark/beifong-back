@@ -18,7 +18,7 @@ const clinicVerificationTemplate = async ( id, name ) => {
             este correo electrónico usando el enlace que se encuentra aquí.
         </p>
         <h2>Enlace de verificación</h2>
-        <p>${token}</p>
+        <p>https://beifong-front.vercel.app/confirmation?token=${token}</p>
         <small>Enlace válido por una hora</small><br/>
         <small>BEIFONG &copy;${year}</small>
     `;

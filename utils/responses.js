@@ -1,5 +1,5 @@
 //Standard error response
-const errorResponse=(res, msg, error, code = 500)=>{
+const errorResponse = (res, msg, error, code = 500) => {
     return res.status(code).json({
         ok: false,
         msg,
@@ -8,7 +8,7 @@ const errorResponse=(res, msg, error, code = 500)=>{
 }
 
 //Standard success response, can be personalized with a message
-const customResponse=(res, msg, code = 200)=>{
+const customResponse = (res, msg, code = 200) => {
     return res.status(code).json({
         ok: true,
         msg
@@ -16,7 +16,7 @@ const customResponse=(res, msg, code = 200)=>{
 }
 
 //Standard error response, can be personalized with a message
-const customErrorResponse=(res, msg, code = 400)=>{
+const customErrorResponse = (res, msg, code = 400) => {
     return res.status(code).json({
         ok: false,
         msg
@@ -24,7 +24,7 @@ const customErrorResponse=(res, msg, code = 400)=>{
 }
 
 
-module.exports={
+module.exports = {
     errorResponse,
     customResponse,
     customErrorResponse

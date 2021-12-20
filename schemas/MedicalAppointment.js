@@ -34,6 +34,9 @@ const MedicalAppointmentSchema = Schema({
         type: Date,
         default: Date.now()
     }
+}, {
+    timestamps: true,
+    versionKey: false
 });
 
 module.exports = model('MedicalAppointment', MedicalAppointmentSchema);

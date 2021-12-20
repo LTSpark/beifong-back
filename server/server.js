@@ -9,7 +9,6 @@ const databaseConnection = require('./database');
 class Server{
 
     constructor(){
-
         this.app    = express();
         this.port   = process.env.PORT;
 
@@ -23,7 +22,6 @@ class Server{
         this.swagger();
         //static content
         this.serveStatic();
-
     }
 
     async dbConnection(){
@@ -61,6 +59,7 @@ class Server{
     listen(){
         this.app.listen(this.port,()=>{
             console.log("Listening port",this.port);
+            console.log(`Running on ${process.env.NODE_ENV} environment`);
         });
     }
 

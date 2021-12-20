@@ -31,15 +31,13 @@ const PatientSchema = Schema({
             ref: 'ClinicalAppointment'
         }
     ],
-    accesibilityConfig: AccesibilityConfigSchema,
-    createdAt: {
-        type: Date,
-        default: Date.now()
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now()
+    accesibilityConfig: {
+        type: AccesibilityConfigSchema,
+        default: () => ({})
     }
+}, {
+    timestamps: true,
+    versionKey: false
 });
 
 module.exports = model('Patient', PatientSchema);

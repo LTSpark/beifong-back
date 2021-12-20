@@ -1,16 +1,16 @@
 const { Router } = require('express');
 
-const PostClinicFlow = require('../api/clinic/postClinic/flow');
-const PostClinicValidators = require('../api/clinic/postClinic/validators');
+const PostClinicFlow = require('../apis/clinic/postClinic/flow');
+const PostClinicValidators = require('../apis/clinic/postClinic/validators');
 
-const ResendEmailClinicFlow = require('../api/clinic/resendEmailClinic/flow');
-const ResendEmailClinicValidators = require('../api/clinic/resendEmailClinic/validators');
+const ResendEmailClinicFlow = require('../apis/clinic/resendEmailClinic/flow');
+const ResendEmailClinicValidators = require('../apis/clinic/resendEmailClinic/validators');
 
-const VerifyClinicFlow = require('../api/clinic/verifyClinic/flow');
-const VerifyClinicValidators = require('../api/clinic/verifyClinic/validators');
+const VerifyClinicFlow = require('../apis/clinic/verifyClinic/flow');
+const VerifyClinicValidators = require('../apis/clinic/verifyClinic/validators');
 
-const LoginClinicFlow = require('../api/clinic/loginClinic/flow');
-const LoginClinicValidators = require('../api/clinic/loginClinic/validators');
+const LoginClinicFlow = require('../apis/clinic/loginClinic/flow');
+const LoginClinicValidators = require('../apis/clinic/loginClinic/validators');
 
 const router = Router();
 

@@ -1,9 +1,9 @@
-const Clinic = require('../../../schemas/Clinic');
+const ClinicService = require('../../../services/clinic.service');
 
-const { sendEmail } = require('../../../services/sendEmail');
+const { sendEmail } = require('../../../utils/utils');
 const { clinicVerificationTemplate } = require('../../../templates/verificationTemplates');
-
 const { errorResponse, customResponse } = require('../../../utils/responses');
+
 
 const ResendEmailClinicFlow = async ( req, res ) => {
 
@@ -11,9 +11,7 @@ const ResendEmailClinicFlow = async ( req, res ) => {
 
     try {
 
-        const { name, email } = await Clinic.findById(clinicId).exec();
-
-        // Create template email and send it to clinic
+        const { name, email } = await ClinicService.findById(clinicId);
         const template = await clinicVerificationTemplate(clinicId, name);
         sendEmail(template, email);
 

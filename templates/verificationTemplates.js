@@ -2,7 +2,7 @@ const { generateJWT } = require('../utils/utils');
 
 const clinicVerificationTemplate = async ( id, name ) => {
 
-    const token = await generateJWT(id, process.env.VERIFY_KEY, process.env.VERIFY_EXPIRATION_DATE);
+    const token = await generateJWT({ id }, process.env.VERIFY_KEY, '1h');
     const year = new Date().getFullYear();
 
     return `

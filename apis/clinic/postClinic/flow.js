@@ -1,31 +1,21 @@
-const Clinic = require('../../../schemas/Clinic');
+const ClinicService = require('../../../services/clinic.service');
 
-const { sendEmail } = require('../../../services/sendEmail');
+const { encryptPassword, sendEmail } = require('../../../utils/utils');
 const { clinicVerificationTemplate } = require('../../../templates/verificationTemplates');
-
-const { encryptPassword } = require('../../../utils/utils');
 const { errorResponse } = require('../../../utils/responses');
 
 const PostClinicFlow = async ( req, res ) => {
 
-    const { name, email, telephone, direction, password } = req.body;   
-    const hashedPassword = encryptPassword(password);
+    const { password, ...user } = req.body;   
+    user.password = encryptPassword(password);
 
-    const clinic = new Clinic({
-        name,
-        email,
-        telephone,
-        password: hashedPassword,
-        direction
-    });
-    
     try {
 
         // Store clinic on database
-        await clinic.save();
+        const clinic = await ClinicService.saveClinic(user);
         // Create template email and send it to clinic
-        const template = await clinicVerificationTemplate(clinic.id, name);
-        sendEmail(template, email);
+        const template = await clinicVerificationTemplate(clinic.id, clinic.name);
+        sendEmail(template, clinic.email);
 
         return res.status(201).json({
             ok: true,

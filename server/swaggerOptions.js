@@ -21,7 +21,7 @@ module.exports = {
 			},
 			{
 				url: "https://beifong-back.herokuapp.com/api",
-				description: "production",
+				description: "Production",
 			}
 		],
 	},

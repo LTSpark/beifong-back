@@ -18,7 +18,7 @@ const VerifyClinicFlow = async ( req, res ) => {
         return res.status(201).json({
             ok: true,
             msg: "Clinic verified successfullly!",
-            token: token
+            token
         });
 
     }

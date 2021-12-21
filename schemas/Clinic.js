@@ -71,7 +71,7 @@ const ClinicSchema = Schema({
         {
             type: Schema.Types.ObjectId,
             ref: 'Medic'
-        }     
+        }
     ],
     clinicalAppointments: [
         {
@@ -89,8 +89,9 @@ const ClinicSchema = Schema({
 });
 
 ClinicSchema.methods.toJSON = function() {
-    const { __v, _id, ...clinic } = this.toObject();
+    const { _id, ...clinic } = this.toObject();
     clinic.clinicId = _id;
+    delete clinic.accesibilityConfig._id;
     return clinic;
 }
 

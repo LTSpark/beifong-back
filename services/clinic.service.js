@@ -17,8 +17,27 @@ class ClinicService {
         return Clinic.findOne(query);
     }
 
-    findById(id){
-        return Clinic.findById(id);
+    async findById(id, medics=false, clinicalAppointments=false){
+        const clinic =  await Clinic.findById(id).exec();
+        if(medics){
+            await Clinic.populate(
+                clinic,
+                {
+                    path: 'medics',
+                    model: 'Medic'
+                }
+            );
+        }
+        if(clinicalAppointments){
+            await Clinic.populate(
+                clinic,
+                {
+                    path: 'clinicalAppointments',
+                    model: 'ClinicalAppointment'
+                }
+            );
+        }
+        return clinic;
     }
 
     async updateClinicById(id, data){

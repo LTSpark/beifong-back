@@ -1,5 +1,5 @@
 const ClinicService = require('../../../services/clinic.service');
-const { customErrorResponse, errorResponse } = require('../../../utils/responses');
+const { errorResponse } = require('../../../utils/responses');
 
 const LoginClinicFlow = async (req, res) => {
 

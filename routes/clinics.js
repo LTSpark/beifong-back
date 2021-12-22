@@ -14,6 +14,8 @@ const LoginClinicValidators = require('../apis/clinic/loginClinic/validators');
 
 const GetClinicFlow = require('../apis/clinic/getClinic/flow');
 const GetClinicValidators = require('../apis/clinic/getClinic/validators');
+const GetClinicsValidators = require('../apis/clinic/getClinics/validators');
+const GetClinicsFlow = require('../apis/clinic/getClinics/flow');
 
 const router = Router();
 
@@ -227,6 +229,7 @@ router.put('/verify', VerifyClinicValidators, VerifyClinicFlow);
 router.post('/login', LoginClinicValidators, LoginClinicFlow);
 
 router.get('/:id', GetClinicValidators, GetClinicFlow);
+router.get('/', GetClinicsValidators, GetClinicsFlow);
 
 
 module.exports = router;

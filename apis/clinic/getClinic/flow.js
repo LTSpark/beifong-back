@@ -11,7 +11,7 @@ const GetClinicFlow = async ( req, res ) => {
     }
     catch(error){
         console.error(error);
-        return errorResponse(res, "Getting clinic information failed", err.message); 
+        return errorResponse(res, "Getting clinic information failed", error.message); 
     }
 }
 

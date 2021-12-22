@@ -1,7 +1,7 @@
 const clinicsDocs = require("./Clinic/clinics")["/clinics"];
-const clinicsResendDocs = require("./Clinic/clinics_resend")["/clinics/resend"];
-const clinicsVerifyDocs = require("./Clinic/clinics_verify")["/clinics/verify"];
-const clinicsLoginDocs = require("./Clinic/clinics_login")["/clinics/login"];
+const clinicsResendDocs = require("./Clinic/clinicsResend")["/clinics/resend"];
+const clinicsVerifyDocs = require("./Clinic/clinicsVerify")["/clinics/verify"];
+const clinicsLoginDocs = require("./Clinic/clinicsLogin")["/clinics/login"];
 
 module.exports = {
     "/clinics": clinicsDocs,

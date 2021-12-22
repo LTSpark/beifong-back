@@ -2,7 +2,7 @@ const cloudinary = require('cloudinary').v2;
 
 const { fileToBase64 } = require('./utils');
 
-cloudinary.config(process.env.CLOUDINARY_URL);
+cloudinary.config(process.env.CLOUDINARY_URI);
 
 class CloudinaryService {
     async upload(file, folder){

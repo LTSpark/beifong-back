@@ -48,8 +48,8 @@ class Server{
     }
 
     swagger(){
-        const specs = swaggerJsdoc(require('./swaggerOptions'));
-        this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
+        const swaggerOptions = swaggerJsdoc(require('../docs/swaggerOptions.js'));
+        this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerOptions));
     }
 
     routes(){

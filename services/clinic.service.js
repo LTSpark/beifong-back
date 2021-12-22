@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 const Clinic = require('../schemas/Clinic');
 
-const { errorFactory, generateJWT } = require('../utils/utils');
+const { errorFactory, generateJWT, parseSort } = require('../utils/utils');
 
 class ClinicService {
 
@@ -56,6 +56,15 @@ class ClinicService {
 
         return generateJWT({ id: clinic.id }, process.env.CLINIC_KEY, '3h');
         
+    }
+
+    async find(query, from=0, limit=5, sort="_id", order="asc") {
+        const sortQuery = parseSort(sort, order);
+        const [ total, clinics ] = await Promise.all([
+            Clinic.countDocuments(query),
+            Clinic.find(query).skip(from).limit(limit).sort(sortQuery).exec()
+        ])
+        return { total, clinics };
     }
 
 }

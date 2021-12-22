@@ -20,7 +20,7 @@ const ResendEmailClinicFlow = async ( req, res ) => {
     }
     catch(error) {
         console.error(error);
-        return errorResponse(res, "Clinic email resend failed", err.message); 
+        return errorResponse(res, "Clinic email resend failed", error.message); 
     }
 
 }

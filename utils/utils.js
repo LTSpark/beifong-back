@@ -52,6 +52,12 @@ const errorFactory = ( msg, statusCode ) => {
     return error;
 }
 
+const parseSort = ( sort, order) => {
+    if(order == 'desc') {
+        sort = "-" + sort;
+    }
+    return sort;
+}
 
 module.exports = {
     encryptPassword,
@@ -59,5 +65,6 @@ module.exports = {
     getJWTPayload,
     fileToBase64,
     errorFactory,
-    sendEmail
+    sendEmail,
+    parseSort
 };

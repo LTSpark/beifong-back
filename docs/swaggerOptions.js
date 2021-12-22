@@ -1,3 +1,7 @@
+const tagsDoc = require("./tags");
+const componentsDocs = require("./components");
+const pathsDocs = require("./paths/paths");
+
 module.exports = {
 	definition: {
 		openapi: "3.0.0",
@@ -24,6 +28,9 @@ module.exports = {
 				description: "Production",
 			}
 		],
+		tags:tagsDoc,
+		components:componentsDocs,
+		paths:pathsDocs
 	},
 	apis: ["./routes/*.js"],
 };

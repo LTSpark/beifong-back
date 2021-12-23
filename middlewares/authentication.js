@@ -26,6 +26,14 @@ const authClinicToken = async(req, res, next) => {
     }
 }
 
+const authVerifiedClinic = async ( req, res, next ) => {
+    if(!req.clinic.verified){
+        return customErrorResponse(res, "Account must be verified to access this", 403);
+    }
+    next();
+}
+
 module.exports = {
-    authClinicToken
+    authClinicToken,
+    authVerifiedClinic
 }

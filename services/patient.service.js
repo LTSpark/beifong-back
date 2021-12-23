@@ -27,6 +27,10 @@ class PatientService {
     findOne(query){
         return Patient.findOne(query).exec();
     }
+
+    async updateOneById(id, data){
+        await Patient.updateOne({ _id: id }, data, { runValidators: true }).exec();
+    }
 }
 
 const patientService = new PatientService();

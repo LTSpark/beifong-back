@@ -45,19 +45,11 @@ const clinicEmailExists = async email => {
     }
 }
 
-const validateLoggedClinic = (req, res, next ) => {
-    if(req.clinic.id != req.params.id) {
-        return customErrorResponse(res, "Forbidden to proceed", 403);
-    }
-    next();
-}
-
 module.exports = {
     uniqueClinicName,
     uniqueClinicEmail,
     clinicExists,
     alreadyVerifiedClinic,
     alreadyVerifiedClinicToken,
-    clinicEmailExists,
-    validateLoggedClinic
+    clinicEmailExists
 }

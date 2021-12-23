@@ -1,4 +1,5 @@
 const PatientService = require("../services/patient.service");
+const { getJWTPayload } = require("../utils/utils");
 
 const uniquePatientName = async name => {
     const patient = await PatientService.findOne({ name });
@@ -21,8 +22,17 @@ const patientExists = async id => {
     }
 }
 
+const alreadyVerifiedPatientToken = async token => {
+    const { id } = getJWTPayload(token, process.env.VERIFY_KEY);
+    const { verified } = await PatientService.findByID(id);
+    if(verified){
+        throw new Error(`Patient with id ${id} is already verified on database`);
+    }
+}
+
 module.exports = {
     uniquePatientName,
     uniquePatientEmail,
-    patientExists
+    patientExists,
+    alreadyVerifiedPatientToken
 }

@@ -1,4 +1,5 @@
 const ClinicService = require('../services/clinic.service');
+const { customErrorResponse } = require('../utils/responses');
 const { getJWTPayload } = require('../utils/utils');
 
 const uniqueClinicName = async name => {
@@ -44,6 +45,13 @@ const clinicEmailExists = async email => {
     }
 }
 
+const validateLoggedClinic = (req, res, next ) => {
+    if(req.clinic.id != req.params.id) {
+        return customErrorResponse(res, "Forbidden to proceed", 403);
+    }
+    next();
+}
+
 module.exports = {
     uniqueClinicName,
     uniqueClinicEmail,
@@ -51,4 +59,5 @@ module.exports = {
     alreadyVerifiedClinic,
     alreadyVerifiedClinicToken,
     clinicEmailExists,
+    validateLoggedClinic
 }

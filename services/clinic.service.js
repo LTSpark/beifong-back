@@ -1,7 +1,12 @@
 const bcrypt = require("bcryptjs");
 const Clinic = require('../schemas/Clinic');
 
-const { errorFactory, generateJWT, parseSort } = require('../utils/utils');
+const { 
+    errorFactory, 
+    generateJWT, 
+    parseSort, 
+    getExpirationDate
+} = require('../utils/utils');
 
 class ClinicService {
 
@@ -65,6 +70,24 @@ class ClinicService {
             Clinic.find(query).skip(from).limit(limit).sort(sortQuery).exec()
         ])
         return { total, clinics };
+    }
+
+    async createPayment(clinicId, subscriptionType, mount) {
+        
+        const { subscriptionPaymentExpires } = await Clinic.findById(clinicId);
+        const expirationDate = getExpirationDate(subscriptionType, subscriptionPaymentExpires);
+
+        await Clinic.updateOne({ _id: clinicId } , { 
+            subscriptionPaymentExpires: expirationDate,
+            $addToSet: {
+                payments: {
+                    mount,
+                    subscriptionType,
+                    expirationDate
+                }
+            }
+        },{ runValidators: true }).exec();
+
     }
 
 }

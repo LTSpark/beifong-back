@@ -59,6 +59,21 @@ const parseSort = ( sort, order) => {
     return sort;
 }
 
+const getExpirationDate = ( subscriptionType, currentDate = new Date() ) => {
+    switch(subscriptionType){
+        case "annual":
+            currentDate.setFullYear(currentDate.getFullYear() + 1);
+            break;
+        case "semi-annual":
+            currentDate.setMonth(currentDate.getMonth() + 6);
+            break;
+        case "monthly":
+            currentDate.setMonth(currentDate.getMonth() + 1);
+            break;
+    }
+    return currentDate;
+}
+
 module.exports = {
     encryptPassword,
     generateJWT,
@@ -66,5 +81,6 @@ module.exports = {
     fileToBase64,
     errorFactory,
     sendEmail,
-    parseSort
+    parseSort,
+    getExpirationDate
 };

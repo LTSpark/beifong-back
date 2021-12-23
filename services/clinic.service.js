@@ -19,7 +19,7 @@ class ClinicService {
     }
 
     findOne(query){
-        return Clinic.findOne(query);
+        return Clinic.findOne(query).exec();
     }
 
     async findById(id, medics=false, clinicalAppointments=false){
@@ -74,7 +74,7 @@ class ClinicService {
 
     async createPayment(clinicId, subscriptionType, mount) {
         
-        const { subscriptionPaymentExpires } = await Clinic.findById(clinicId);
+        const { subscriptionPaymentExpires } = await Clinic.findById(clinicId).exec();
         const expirationDate = getExpirationDate(subscriptionType, subscriptionPaymentExpires);
 
         await Clinic.updateOne({ _id: clinicId } , { 

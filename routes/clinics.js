@@ -30,6 +30,6 @@ router.post('/login', LoginClinicValidators, LoginClinicFlow);
 router.get('/:id', GetClinicValidators, GetClinicFlow);
 router.get('/', GetClinicsValidators, GetClinicsFlow);
 
-router.put('/:id/subscribe', SubscribeClinicValidators, SubscribeClinicFlow);
+router.put('/subscribe', SubscribeClinicValidators, SubscribeClinicFlow);
 
 module.exports = router;

@@ -25,6 +25,28 @@ const clinicVerificationTemplate = async ( id, name ) => {
 
 }
 
+const patientVerificationTemplate = async ( id, name ) => {
+
+    const token = await generateJWT({ id }, process.env.VERIFY_KEY, '1h');
+    const year = new Date().getFullYear();
+
+    return `
+        <h1>Hola, ${name}</h1><hr/>
+        <p>
+            Para usar Beifong y acceder a todos los servicios que
+            ofrecen las clínicas que se encuentran en nuestra aplicación,
+            usted debe confirmar su correo electrónico. Haga click en el enlace
+            para verificar su cuenta.
+        </p>
+        <h2>Enlace de verificación</h2>
+        <p>https://beifong-front.vercel.app/clinica/confirmation?token=${token}</p>
+        <small>Enlace válido por una hora</small><br/>
+        <small>BEIFONG &copy;${year}</small>
+    `;
+
+}
+
 module.exports={
-    clinicVerificationTemplate
+    clinicVerificationTemplate,
+    patientVerificationTemplate
 };

@@ -11,7 +11,7 @@ const VerifyClinicFlow = async ( req, res ) => {
 
         const { id } = getJWTPayload(verifyToken, process.env.VERIFY_KEY);
 
-        ClinicService.updateClinicById(id, { verified: true });
+        await ClinicService.updateClinicById(id, { verified: true });
 
         // Create token
         const token = await generateJWT({ id }, process.env.CLINIC_KEY, '1h');

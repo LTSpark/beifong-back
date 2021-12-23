@@ -10,7 +10,7 @@ const LoginClinicFlow = async (req, res) => {
         const token = await ClinicService.login(email, password);
         return res.status(200).json({
             ok: true,
-            msg: "Clinc login success",
+            msg: "Clinic login success",
             token
         });
 

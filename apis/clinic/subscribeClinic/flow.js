@@ -5,7 +5,7 @@ const { errorResponse, customResponse } = require("../../../utils/responses");
 const SubscribeClinicFlow = async ( req, res ) => {
     try{
         const { subscriptionType, mount } = req.body;
-        ClinicService.createPayment(req.params.id, subscriptionType, mount);
+        await ClinicService.createPayment(req.clinic.id, subscriptionType, mount);
         return customResponse(res, "Payment done successfully", 201);
     }
     catch(error) {

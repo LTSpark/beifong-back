@@ -19,8 +19,8 @@ const PostClinicFlow = async ( req, res ) => {
 
         return res.status(201).json({
             ok: true,
-            clinicId: clinic.id,
-            msg: "Clinic creation done! Please check your email"     
+            msg: "Clinic creation done! Please check your email",
+            clinicId: clinic.id
         });
 
     }

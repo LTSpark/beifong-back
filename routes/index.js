@@ -2,8 +2,10 @@ const express = require('express');
 const router  = express.Router();
 
 const clinics = require('./clinics');
+const patients = require('./patients');
 
 router.use('/clinics', clinics);
+router.use('/patients', patients);
 
 //The 404 Route (ALWAYS Keep this as the last route)
 router.use('*', (_, res) => {

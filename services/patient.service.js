@@ -2,11 +2,26 @@ const Patient = require("../schemas/Patient");
 
 class PatientService {
 
-    savePatient(data){
+    savePatient(data, google=false){
         const { name, email, password } = data;
+
         const patient = new Patient({
             name, email, password
         });
+
+        return patient.save();
+    }
+
+    saveGoogle(name, email, img){
+        const patient = new Patient({
+            name,
+            email,
+            img,
+            verified : true,
+            google : true,
+            password : process.env.DEFAULT_GOOGLE_PASSWORD
+        });
+        console.log(patient.img);
         return patient.save();
     }
 

@@ -21,7 +21,6 @@ class PatientService {
             google : true,
             password : process.env.DEFAULT_GOOGLE_PASSWORD
         });
-        console.log(patient.img);
         return patient.save();
     }
 

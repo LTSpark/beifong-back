@@ -113,7 +113,8 @@ module.exports = {
                 description: "information about operation perfomed"
             },
             token: {
-                type: "string"
+                type: "string",
+                description: "Token of the Clinic session"
             }
         },
         example: {

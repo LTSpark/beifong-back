@@ -13,7 +13,9 @@ const {
 const {
   PostPatient,
   PostPatientResponse,
-  TokenPatientResponse
+  TokenPatientResponse,
+  PatientGoogleLogin,
+  PatientGoogleLoginResponse
 } = require("./schemas/Patient");
 
 module.exports = 
@@ -30,7 +32,9 @@ module.exports =
 
     PostPatient,
     PostPatientResponse,
-    TokenPatientResponse
+    TokenPatientResponse,
+    PatientGoogleLogin,
+    PatientGoogleLoginResponse
 }
   
 

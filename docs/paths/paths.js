@@ -7,6 +7,7 @@ const clinicsSubscribe = require("./Clinic/clinicsSubscribe")["/clinics/subscrib
 
 const patients = require("./Patients/patients")["/patients"];
 const patientsVerify = require("./Patients/patientsVerify")["/patients/verify"];
+const patientsLoginGoogle = require("./Patients/loginGoogle")["/patients/login/google"];
 
 module.exports = {
     "/clinics": clinics,
@@ -17,5 +18,6 @@ module.exports = {
     "/clinics/subscribe":clinicsSubscribe,
 
     "/patients/":patients,
-    "/patients/verify":patientsVerify
+    "/patients/verify":patientsVerify,
+    "/patients/login/google":patientsLoginGoogle
 };

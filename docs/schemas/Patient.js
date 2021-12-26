@@ -62,12 +62,44 @@ module.exports = {
                 description: "information about operation perfomed"
             },
             token: {
-                type: "string"
+                type: "string",
+                description: "Token of the Patient session"
             }
         },
         example: {
             ok: true,
             msg: "Response message",
+            token: "token"
+        }
+    },
+
+    PatientGoogleLogin: {
+        type: "Object",
+        properties: {
+            idToken: {
+                type: "string",
+                description: "Token given for the Google Login"
+            }
+        },
+        example: {
+            idToken: "lkamsoi123lknf"
+        }
+    },
+
+    PatientGoogleLoginResponse: {
+        type: "Object",
+        properties: {
+            ok: {
+                type: "boolean",
+                description: "indicates if operation was done correctly"
+            },
+            token: {
+                type: "string",
+                description: "Token of the Patient session"
+            }
+        },
+        example: {
+            ok: true,
             token: "token"
         }
     },

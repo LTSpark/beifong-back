@@ -2,6 +2,9 @@ const jwt = require('jsonwebtoken');
 const bcryptjs = require('bcryptjs');
 const nodemailer = require('nodemailer');
 
+const { OAuth2Client } = require('google-auth-library');
+const client = new OAuth2Client( process.env.GOOGLE_CLIENT_ID );
+
 const sendEmail = async ( template, email ) => {
 
     let transporter = nodemailer.createTransport({
@@ -74,6 +77,19 @@ const getExpirationDate = ( subscriptionType, currentDate = new Date() ) => {
     return currentDate;
 }
 
+const googleVerify = async idToken => {
+
+    const ticket = await client.verifyIdToken({
+        idToken,
+        audience: process.env.GOOGLE_CLIENT_ID
+    });
+
+    const { name, email, picture : img } = ticket.getPayload();
+
+    return {name, email, img};
+
+}
+
 module.exports = {
     encryptPassword,
     generateJWT,
@@ -82,5 +98,6 @@ module.exports = {
     errorFactory,
     sendEmail,
     parseSort,
-    getExpirationDate
+    getExpirationDate,
+    googleVerify
 };

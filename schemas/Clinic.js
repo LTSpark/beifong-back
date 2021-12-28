@@ -24,7 +24,7 @@ const ClinicSchema = Schema({
     telephone: {
         type: String,
         minLength: 9,
-        required: [ true, 'Password is required' ]
+        required: [ true, 'Telephone is required' ]
     },
     direction: {
         type: String,

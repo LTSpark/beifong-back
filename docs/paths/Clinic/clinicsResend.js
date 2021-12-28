@@ -16,7 +16,7 @@ module.exports = {
                 }
             },
             responses: {
-                201: {
+                200: {
                     description: "Resends another email to the clinicId provided",
                     content: {
                         "application/json": {

@@ -17,7 +17,7 @@ module.exports = {
           }
         ],
         responses: {
-          200: {
+          201: {
             description: "clinic account verified",
             content: {
               "application/json": {

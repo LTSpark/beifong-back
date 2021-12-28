@@ -1,18 +1,20 @@
 const PatientService = require("../../../services/patient.service");
 
-const { sendEmail } = require("../../../utils/utils");
+const { sendEmail, encryptPassword } = require("../../../utils/utils");
 const { patientVerificationTemplate } = require("../../../templates/verificationTemplates");
 const { errorResponse } = require("../../../utils/responses");
 
 
 const PostPatientFlow = async ( req, res ) => {
+    const { password, ...patient } = req.body;
+    patient.password = encryptPassword(password);
     try{
-        const patient = await PatientService.savePatient(req.body);
-        const template = await patientVerificationTemplate(patient.id, patient.name);
-        sendEmail(template, patient.email);
+        const { id, name, email } = await PatientService.savePatient(patient);
+        const template = await patientVerificationTemplate(id, name);
+        sendEmail(template, email);
         return res.status(201).json({
             ok: true,
-            patientId: patient.id,
+            patientId: id,
             msg: "Patient creation done! Please check your email."
         });
     }

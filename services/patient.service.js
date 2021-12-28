@@ -57,7 +57,6 @@ class PatientService {
         if(!patient){
             throw errorFactory("Patient not found", 400);
         }
-        console.log(password, patient.password)
 
         if(!bcrypt.compareSync(password, patient.password)){
             throw errorFactory("Invalid password", 401);

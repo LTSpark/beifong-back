@@ -1,4 +1,10 @@
+const bcrypt = require("bcryptjs");
 const Patient = require("../schemas/Patient");
+
+const { 
+    errorFactory, 
+    generateJWT
+} = require('../utils/utils');
 
 class PatientService {
 
@@ -45,6 +51,22 @@ class PatientService {
     async updateOneById(id, data){
         await Patient.updateOne({ _id: id }, data, { runValidators: true }).exec();
     }
+
+    async login(email, password){
+        const patient = await Patient.findOne({ email }).exec();
+        if(!patient){
+            throw errorFactory("Patient not found", 400);
+        }
+        console.log(password, patient.password)
+
+        if(!bcrypt.compareSync(password, patient.password)){
+            throw errorFactory("Invalid password", 401);
+        }
+
+        return generateJWT({ id: patient.id }, process.env.PATIENT_KEY, '3h');
+        
+    }
+
 }
 
 const patientService = new PatientService();

@@ -30,9 +30,17 @@ const alreadyVerifiedPatientToken = async token => {
     }
 }
 
+const patientEmailExists = async email => {
+    const patient = await PatientService.findOne({ email });
+    if(!patient){
+        throw new Error(`Patient with email ${email} does not exist on database`);
+    }
+}
+
 module.exports = {
     uniquePatientName,
     uniquePatientEmail,
     patientExists,
-    alreadyVerifiedPatientToken
+    alreadyVerifiedPatientToken,
+    patientEmailExists
 }

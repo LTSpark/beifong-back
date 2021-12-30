@@ -6,8 +6,9 @@ const { errorResponse } = require("../../../utils/responses");
 const LoginGooglePatientFlow = async ( req, res ) => {
 
     try{
-
+        console.log(req.body.idToken);
         const { name, email, img } = await googleVerify(req.body.idToken);
+        
         let patient = await PatientService.findOne({ email });
 
         let statusCode = 200;

@@ -14,17 +14,7 @@ module.exports = {
                     },
                     required: true,
                     description: "Authorization token"
-                },
-                {
-                    in: "clinic",
-                    name: "verified",
-                    schema: {
-                      type: "Boolean"
-                    },
-                    required: true,
-                    description: "if the clinic is verified"
-                },
-
+                }
             ],
             requestBody:{
                 required: true,

@@ -1,5 +1,4 @@
 const ClinicService = require('../services/clinic.service');
-const { customErrorResponse } = require('../utils/responses');
 const { getJWTPayload } = require('../utils/utils');
 
 const uniqueClinicName = async name => {
@@ -10,7 +9,7 @@ const uniqueClinicName = async name => {
 }
 
 const uniqueClinicEmail = async email => {
-    const clinic = await ClinicService.findOne({ email }).exec();
+    const clinic = await ClinicService.findOne({ email });
     if(clinic){
         throw new Error(`Clinic with ${email} already exists on database, select another email`);
     }

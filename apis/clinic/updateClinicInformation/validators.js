@@ -1,7 +1,7 @@
 const { body } = require("express-validator");
 
 const { fieldValidation } = require("../../../middlewares/fieldValidation");
-const { imgValidator } = require("../../../middlewares/fileValidators");
+const { optionalImgValidator } = require("../../../middlewares/fileValidators");
 const { authClinicToken, authVerifiedClinic, authSubscribedClinic } = require("../../../middlewares/authentication");
 const { validateHourMinutes, weekDays, validateWeekDay } = require("../../../middlewares/dateValidators");
 
@@ -18,7 +18,7 @@ const UpdateClinicInformationValidators = [
     fieldValidation,
     validateHourMinutes,
     validateWeekDay,
-    imgValidator
+    optionalImgValidator
 ];
 
 module.exports = UpdateClinicInformationValidators;

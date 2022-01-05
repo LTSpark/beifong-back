@@ -3,7 +3,7 @@ const { fileToBase64 } = require("../utils/utils");
 
 const validMimetypes = [ 'image/jpeg', 'image/jpg', 'image/png', 'image/webp' ];
 
-const imgValidator = ( req, res, next ) => {
+const optionalImgValidator = ( req, res, next ) => {
     if( req.files?.img != undefined ){
         const mimetype = req.files.img.mimetype;
         const buffer = req.files.img.data;
@@ -16,5 +16,5 @@ const imgValidator = ( req, res, next ) => {
 }
 
 module.exports = {
-    imgValidator
+    optionalImgValidator
 }

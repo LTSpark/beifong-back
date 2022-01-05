@@ -77,7 +77,7 @@ class ClinicService {
         const { subscriptionPaymentExpires } = await Clinic.findById(clinicId).exec();
         const expirationDate = getExpirationDate(subscriptionType, subscriptionPaymentExpires);
 
-        await Clinic.updateOne({ _id: clinicId } , { 
+        await Clinic.updateOne({ _id: clinicId }, { 
             subscriptionPaymentExpires: expirationDate,
             $addToSet: {
                 payments: {
@@ -88,6 +88,14 @@ class ClinicService {
             }
         },{ runValidators: true }).exec();
 
+    }
+
+    async addSection(clinicId, section) {
+        await Clinic.updateOne({ _id: clinicId }, {
+            $addToSet: {
+                sections: section
+            }
+        },{ runValidators: true }).exec();
     }
 
 }

@@ -15,6 +15,21 @@ const optionalImgValidator = ( req, res, next ) => {
     next();
 }
 
+const imgValidator = ( req, res, next ) => {
+
+    if( req.files?.img == undefined ) return customErrorResponse(res, "No image sent");
+
+    const mimetype = req.files.img.mimetype;
+    const buffer = req.files.img.data;
+
+    if(!validMimetypes.includes(mimetype)) return customErrorResponse(res, `Invalid file: ${mimetype}`);
+
+    req.img = fileToBase64( mimetype, buffer );
+    next();
+
+}
+
 module.exports = {
-    optionalImgValidator
+    optionalImgValidator,
+    imgValidator
 }

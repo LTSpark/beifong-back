@@ -31,10 +31,10 @@ const ClinicSchema = Schema({
         required: [ true, 'Direction is required' ]
     },
     startAttentionTime: {
-        type: Date
+        type: String
     },
     endAttentionTime: {
-        type: Date
+        type: String
     },
     attentionDays: {
         type: [String],

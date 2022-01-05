@@ -33,7 +33,19 @@ const authVerifiedClinic = async ( req, res, next ) => {
     next();
 }
 
+const authSubscribedClinic = async ( req, res, next ) => {
+    const currentTime = new Date();
+    if(!req.clinic.subscriptionPaymentExpires){
+        return customErrorResponse(res, "No subscription found", 403);
+    }
+    if(req.clinic.subscriptionPaymentExpires < currentTime.getTime()){
+        return customErrorResponse(res, "Subscription expired", 403);
+    }
+    next();
+}
+
 module.exports = {
     authClinicToken,
-    authVerifiedClinic
+    authVerifiedClinic,
+    authSubscribedClinic
 }

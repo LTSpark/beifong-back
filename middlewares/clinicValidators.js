@@ -1,5 +1,4 @@
 const ClinicService = require('../services/clinic.service');
-const { customErrorResponse } = require('../utils/responses');
 const { getJWTPayload } = require('../utils/utils');
 
 const uniqueClinicName = async name => {

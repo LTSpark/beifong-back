@@ -5,6 +5,8 @@ const nodemailer = require('nodemailer');
 const { OAuth2Client } = require('google-auth-library');
 const client = new OAuth2Client( process.env.GOOGLE_CLIENT_ID );
 
+const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
 const sendEmail = async ( template, email ) => {
 
     let transporter = nodemailer.createTransport({
@@ -90,6 +92,19 @@ const googleVerify = async idToken => {
 
 }
 
+const getWeekdays = ( startDay, endDay ) => {
+
+    const start = weekDays.indexOf(startDay);
+    const end = weekDays.indexOf(endDay);
+
+    let week = weekDays.map( ( weekDay, index )=> {
+        if( index >= start && index <= end ) return weekDay;
+    });
+    
+    return week.filter( day => day != undefined )
+
+}
+
 module.exports = {
     encryptPassword,
     generateJWT,
@@ -99,5 +114,6 @@ module.exports = {
     sendEmail,
     parseSort,
     getExpirationDate,
-    googleVerify
+    googleVerify,
+    getWeekdays
 };

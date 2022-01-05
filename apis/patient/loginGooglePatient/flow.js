@@ -10,7 +10,6 @@ const LoginGooglePatientFlow = async ( req, res ) => {
         const { name, email, img } = await googleVerify(req.body.idToken);
         
         let patient = await PatientService.findOne({ email });
-
         let statusCode = 200;
 
         if(!patient){

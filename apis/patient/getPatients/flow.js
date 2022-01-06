@@ -8,7 +8,7 @@ const GetPatientsFlow = async ( req, res ) => {
         const query = { name: new RegExp(name, 'i') };
         const { total, patients } = await PatientService.find(query, from, limit, sort, order);
         return res.status(200).json({
-            totalUsers: total,
+            totalPatients: total,
             patients
         });
     }

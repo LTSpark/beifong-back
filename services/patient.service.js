@@ -49,7 +49,7 @@ class PatientService {
         return Patient.findOne(query).exec();
     }
 
-    async updateOneById(id, data){
+    async updatePatientById(id, data){
         await Patient.updateOne({ _id: id }, data, { runValidators: true }).exec();
     }
 

@@ -17,7 +17,7 @@ const LoginGooglePatientFlow = async ( req, res ) => {
             statusCode = 201;
         }
         if(!patient.verified || !patient.google){
-            PatientService.updateOneById( patient.id, { verified: true, google: true } );
+            PatientService.updatePatientById( patient.id, { verified: true, google: true } );
         }
 
         const token = generateJWT({ id: patient.id }, process.env.PATIENT_KEY, '3h');

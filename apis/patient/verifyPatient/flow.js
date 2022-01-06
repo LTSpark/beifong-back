@@ -6,7 +6,7 @@ const VerifyPatientFlow = async ( req, res ) => {
     const { token: verifyToken } = req.query;
     try {
         const { id } = getJWTPayload(verifyToken, process.env.VERIFY_KEY);
-        PatientService.updateOneById(id, { verified: true });
+        PatientService.updatePatientById(id, { verified: true });
         // Create token
         const token = await generateJWT({ id }, process.env.PATIENT_KEY, '1h');
         return res.status(201).json({

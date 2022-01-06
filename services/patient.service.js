@@ -3,7 +3,8 @@ const Patient = require("../schemas/Patient");
 
 const { 
     errorFactory, 
-    generateJWT
+    generateJWT,
+    parseSort
 } = require('../utils/utils');
 
 class PatientService {
@@ -64,6 +65,15 @@ class PatientService {
 
         return generateJWT({ id: patient.id }, process.env.PATIENT_KEY, '3h');
         
+    }
+
+    async find(query, from=0, limit=5, sort="_id", order="asc") {
+        const sortQuery = parseSort(sort, order);
+        const [ total, patients ] = await Promise.all([
+            Patient.countDocuments(query),
+            Patient.find(query).skip(from).limit(limit).sort(sortQuery).exec()
+        ])
+        return { total, patients };
     }
 
 }

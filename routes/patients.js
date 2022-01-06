@@ -9,6 +9,9 @@ const LoginPatientValidators = require('../apis/patient/loginPatient/validators'
 const PostPatientFlow = require('../apis/patient/postPatient/flow');
 const PostPatientValidators = require('../apis/patient/postPatient/validators');
 
+const SetPatientAccesibilityFlow = require('../apis/patient/setPatientAccesibility/flow');
+const SetPatientAccesibilityValidators = require('../apis/patient/setPatientAccesibility/validators');
+
 const VerifyPatientFlow = require('../apis/patient/verifyPatient/flow');
 const VerifyPatientValidators = require('../apis/patient/verifyPatient/validators');
 
@@ -20,5 +23,6 @@ router.post('/login', LoginPatientValidators, LoginPatientFlow);
 router.post('/login/google', LoginGooglePatientValidators, LoginGooglePatientFlow);
 
 router.put('/verify', VerifyPatientValidators, VerifyPatientFlow);
+router.put('/accesibility', SetPatientAccesibilityValidators ,SetPatientAccesibilityFlow)
 
 module.exports = router;

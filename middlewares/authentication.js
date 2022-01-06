@@ -1,4 +1,5 @@
 const ClinicService = require("../services/clinic.service");
+const PatientService = require("../services/patient.service");
 
 const { customErrorResponse, errorResponse } = require("../utils/responses");
 const { getJWTPayload } = require("../utils/utils");
@@ -44,8 +45,34 @@ const authSubscribedClinic = async ( req, res, next ) => {
     next();
 }
 
+const authPatientToken = async ( req, res, next ) => {
+
+    const authHeader = req.header("Authorization");
+    if(!authHeader){
+        return customErrorResponse(res, "Token not found");
+    }
+    if(!authHeader.startsWith("Bearer ", 0)){
+        return customErrorResponse(res, "Bad authorization");
+    }
+    const token = authHeader.substring(7, authHeader.length);
+
+    try {
+        const { id } = getJWTPayload(token, process.env.PATIENT_KEY);
+        const patient = await PatientService.findByID(id);
+        if(!patient){
+            return customErrorResponse(res, "Invalid token: patient not found", 403);
+        }
+        req.patient = patient;
+        next();
+    } catch(error) {
+        console.error(error);
+        return errorResponse(res, "Invalid token", 401);
+    }
+}
+
 module.exports = {
     authClinicToken,
     authVerifiedClinic,
-    authSubscribedClinic
+    authSubscribedClinic,
+    authPatientToken
 }

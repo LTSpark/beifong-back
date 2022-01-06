@@ -1,5 +1,7 @@
 const { Schema } = require('mongoose');
 
+const allowedFontSizes = ['sm', 'md', 'base', 'lg', 'xl'];
+
 const AccesibilityConfigSchema = Schema({
     darkMode: {
         type: Boolean,
@@ -18,10 +20,9 @@ const AccesibilityConfigSchema = Schema({
         default: false
     },
     fontSize: {
-        type: Number,
-        min: 10,
-        max: 50,
-        default: 25
+        type: String,
+        enum: allowedFontSizes,
+        default: 'base'
     },
     visualDisease: {
         type: String,

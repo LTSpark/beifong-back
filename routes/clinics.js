@@ -27,6 +27,9 @@ const UpdateClinicInformationValidators = require('../apis/clinic/updateClinicIn
 const AddClinicSectionFlow = require('../apis/clinic/addClinicSection/flow');
 const AddClinicSectionValidators = require('../apis/clinic/addClinicSection/validators');
 
+const SetClinicAccesibilityFlow = require('../apis/clinic/setClinicAccesibility/flow');
+const SetClinicAccesibilityValidators = require('../apis/clinic/setClinicAccesibility/validators');
+
 const router = Router();
 
 router.post('/', PostClinicValidators, PostClinicFlow);
@@ -40,5 +43,6 @@ router.put('/verify', VerifyClinicValidators, VerifyClinicFlow);
 router.put('/subscribe', SubscribeClinicValidators, SubscribeClinicFlow);
 router.put('/section', AddClinicSectionValidators, AddClinicSectionFlow);
 router.put('/information', UpdateClinicInformationValidators, UpdateClinicInformationFlow);
+router.put('/accesibility', SetClinicAccesibilityValidators,SetClinicAccesibilityFlow);
 
 module.exports = router;

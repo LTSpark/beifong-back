@@ -46,7 +46,7 @@ class ClinicService {
     }
 
     async updateClinicById(id, data){
-        await Clinic.updateOne({ _id: id }, data).exec();
+        await Clinic.updateOne({ _id: id }, data, { runValidators: true }).exec();
     }
 
     async login(email, password){

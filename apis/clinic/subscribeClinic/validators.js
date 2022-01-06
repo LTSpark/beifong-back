@@ -3,7 +3,6 @@ const { body } = require("express-validator");
 const { authClinicToken, authVerifiedClinic } = require("../../../middlewares/authentication");
 const { fieldValidation } = require("../../../middlewares/fieldValidation");
 
-
 const SubscribeClinicValidators = [
     authClinicToken,
     authVerifiedClinic,

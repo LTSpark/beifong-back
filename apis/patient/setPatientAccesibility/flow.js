@@ -4,7 +4,7 @@ const { customResponse, errorResponse } = require("../../../utils/responses");
 const SetPatientAccesibilityFlow = async ( req, res ) => {
     const { ...accesibilityConfig } = req.body;
     try {
-        await PatientService.updateOneById(req.patient.id, { accesibilityConfig });
+        await PatientService.updatePatientById(req.patient.id, { accesibilityConfig });
         return customResponse(res, "Accesibility config updated!");
     }
     catch(error) {

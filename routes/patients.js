@@ -1,5 +1,8 @@
 const { Router } = require('express');
 
+const GetPatientFlow = require('../apis/patient/getPatient/flow');
+const GetPatientValidators = require('../apis/patient/getPatient/validators');
+
 const LoginGooglePatientFlow = require('../apis/patient/loginGooglePatient/flow');
 const LoginGooglePatientValidators = require('../apis/patient/loginGooglePatient/validators');
 
@@ -21,6 +24,8 @@ router.post('/', PostPatientValidators, PostPatientFlow);
 
 router.post('/login', LoginPatientValidators, LoginPatientFlow);
 router.post('/login/google', LoginGooglePatientValidators, LoginGooglePatientFlow);
+
+router.get('/:id', GetPatientValidators,GetPatientFlow);
 
 router.put('/verify', VerifyPatientValidators, VerifyPatientFlow);
 router.put('/accesibility', SetPatientAccesibilityValidators ,SetPatientAccesibilityFlow)

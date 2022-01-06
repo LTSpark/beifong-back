@@ -67,7 +67,7 @@ class ClinicService {
         const sortQuery = parseSort(sort, order);
         const [ total, clinics ] = await Promise.all([
             Clinic.countDocuments(query),
-            Clinic.find(query).skip(from).limit(limit).sort(sortQuery).exec()
+            Clinic.find(query).skip(Number(from)).limit(Number(limit)).sort(sortQuery).exec()
         ])
         return { total, clinics };
     }

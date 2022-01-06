@@ -71,7 +71,7 @@ class PatientService {
         const sortQuery = parseSort(sort, order);
         const [ total, patients ] = await Promise.all([
             Patient.countDocuments(query),
-            Patient.find(query).skip(from).limit(limit).sort(sortQuery).exec()
+            Patient.find(query).skip(Number(from)).limit(Number(limit)).sort(sortQuery).exec()
         ])
         return { total, patients };
     }

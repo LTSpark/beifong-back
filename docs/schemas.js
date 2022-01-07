@@ -7,7 +7,9 @@ const {
   LoginClinic,
   GetClinicsResponse,
   GetClinicIdResponse,
-  ClinicSuscription
+  ClinicSuscription,
+  UpdateClinicInformation,
+  UpdateClinicInformationResponse
 } = require("./schemas/Clinic");
 
 const {
@@ -15,7 +17,9 @@ const {
   PostPatientResponse,
   TokenPatientResponse,
   PatientGoogleLogin,
-  PatientGoogleLoginResponse
+  PatientGoogleLoginResponse,
+  PatientLogin,
+  PatientLoginResponse
 } = require("./schemas/Patient");
 
 module.exports = 
@@ -29,12 +33,16 @@ module.exports =
     GetClinicsResponse,
     GetClinicIdResponse,
     ClinicSuscription,
+    UpdateClinicInformation,
+    UpdateClinicInformationResponse,
 
     PostPatient,
     PostPatientResponse,
     TokenPatientResponse,
     PatientGoogleLogin,
-    PatientGoogleLoginResponse
+    PatientGoogleLoginResponse,
+    PatientLogin,
+    PatientLoginResponse
 }
   
 

@@ -1,4 +1,6 @@
 const schemasDoc = require("./schemas");
+const securitySchemesDoc = require("./securitySchemes");
 module.exports = {
-    schemas:schemasDoc
+    schemas:schemasDoc,
+    securitySchemes:securitySchemesDoc
 };

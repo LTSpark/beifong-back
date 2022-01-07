@@ -1,7 +1,7 @@
 module.exports = {
-    "/clinics/subscribe": {
+    "/clinics/information": {
         put: {
-            summary: "Edits the suscription of a Clinic",
+            summary: "Updates the information of a Clinic",
             tags: [
                 "Clinic"
             ],
@@ -14,6 +14,15 @@ module.exports = {
                     },
                     required: true,
                     description: "Authorization token"
+                },
+                {
+                    in: "files",
+                    name: "img",
+                    schema: {
+                      type: "Object"
+                    },
+                    required: false,
+                    description: "Optional Image. Contains: mimetype and data"
                 }
             ],
             requestBody:{
@@ -21,23 +30,22 @@ module.exports = {
                 content: {
                   "application/json": {
                     schema: {
-                      $ref: "#/components/schemas/ClinicSuscription"
+                      $ref: "#/components/schemas/UpdateClinicInformation"
                     }
                   }
                 }
             },
             responses: {
-                201: {
-                    description: "Payment done successfully",
+                200: {
+                    description: "Update clinic information success!",
+                    content: {
+                        "application/json": {
+                          $ref: "#/components/schemas/UpdateClinicInformationResponse"
+                        }
+                      }
                 },
                 400: {
-                    description: "Wrong body params"
-                },
-                401: {
-                    description: "Invalid Token"
-                },
-                403: {
-                    description: "Clinic not found or account not verified"
+                    description: "invalid token, Clinic not verified, subscribed or wrong body params"
                 },
                 500: {
                     description: "Internal server error - Failed database connection"

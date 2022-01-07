@@ -1,6 +1,7 @@
 const tagsDoc = require("./tags");
 const componentsDocs = require("./components");
 const pathsDocs = require("./paths/paths");
+const { bearerAuth } = require("./securitySchemes");
 
 module.exports = {
 	definition: {
@@ -30,6 +31,11 @@ module.exports = {
 		],
 		tags:tagsDoc,
 		components:componentsDocs,
+		security:[
+			{
+				bearerAuth: []
+			}
+		],
 		paths:pathsDocs
 	},
 	apis: ["./routes/*.js"],

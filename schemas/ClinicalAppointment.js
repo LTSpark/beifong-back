@@ -1,6 +1,6 @@
 const { Schema, model } = require('mongoose');
 
-const MedicalAppointmentSchema = Schema({
+const ClinicalAppointmentSchema = Schema({
     startAttentionTime: {
         type: Date,
         required: [true, 'StartAttentionTime is required']
@@ -39,4 +39,4 @@ const MedicalAppointmentSchema = Schema({
     versionKey: false
 });
 
-module.exports = model('MedicalAppointment', MedicalAppointmentSchema);
+module.exports = model('ClinicalAppointment', ClinicalAppointmentSchema);

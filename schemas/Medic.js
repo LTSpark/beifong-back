@@ -45,6 +45,10 @@ const MedicSchema = Schema({
         min: 0,
         required: [ true, 'AttentionCost is required' ]
     },
+    attentionTime: {
+        type: Number,
+        min: 1
+    },
     img: {
         type: String,
         required: [ true, 'Img is required' ]

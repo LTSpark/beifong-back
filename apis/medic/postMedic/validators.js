@@ -3,6 +3,7 @@ const { body } = require("express-validator");
 const { authClinicToken, authVerifiedClinic, authSubscribedClinic } = require("../../../middlewares/authentication");
 const { imgValidator } = require("../../../middlewares/fileValidators");
 const { fieldValidation } = require("../../../middlewares/fieldValidation");
+const { medicAlreadyCreatedOnClinic } = require("../../../middlewares/medicValidators");
 
 const PostMedicValidators = [
     authClinicToken,
@@ -20,7 +21,8 @@ const PostMedicValidators = [
     body("specialty").isLength({ min: 2, max: 50 }).trim(),
     body("attentionCost").isFloat({ min: 0.1 }),
     fieldValidation,
-    imgValidator
+    imgValidator,
+    medicAlreadyCreatedOnClinic
 ];
 
 module.exports = PostMedicValidators;

@@ -45,8 +45,8 @@ class ClinicService {
         return clinic;
     }
 
-    async updateClinicById(id, data){
-        await Clinic.updateOne({ _id: id }, data, { runValidators: true }).exec();
+    updateClinicById(id, data){
+        Clinic.updateOne({ _id: id }, data, { runValidators: true }).exec();
     }
 
     async login(email, password){
@@ -68,7 +68,7 @@ class ClinicService {
         const [ total, clinics ] = await Promise.all([
             Clinic.countDocuments(query),
             Clinic.find(query).skip(Number(from)).limit(Number(limit)).sort(sortQuery).exec()
-        ])
+        ]);
         return { total, clinics };
     }
 
@@ -85,15 +85,6 @@ class ClinicService {
                     subscriptionType,
                     expirationDate
                 }
-            }
-        },{ runValidators: true }).exec();
-
-    }
-
-    async addSection(clinicId, section) {
-        await Clinic.updateOne({ _id: clinicId }, {
-            $addToSet: {
-                sections: section
             }
         },{ runValidators: true }).exec();
     }

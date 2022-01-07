@@ -12,7 +12,11 @@ const AddClinicSectionFlow = async ( req, res ) => {
         
         Object.assign(section, { title, description, imgPosition });
         section.img = await CloudinaryService.upload(req.img, "Clinics");
-        await ClinicService.addSection( req.clinic.id, section );
+        await ClinicService.updateClinicById(req.clinic.id, {
+            $addToSet: {
+                sections: section
+            }
+        });
         return customResponse(res, "Add clinic section done!", 201);
 
     } 

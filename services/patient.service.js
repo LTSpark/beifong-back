@@ -49,8 +49,8 @@ class PatientService {
         return Patient.findOne(query).exec();
     }
 
-    async updatePatientById(id, data){
-        await Patient.updateOne({ _id: id }, data, { runValidators: true }).exec();
+    updatePatientById(id, data){
+        Patient.updateOne({ _id: id }, data, { runValidators: true }).exec();
     }
 
     async login(email, password){
@@ -72,7 +72,7 @@ class PatientService {
         const [ total, patients ] = await Promise.all([
             Patient.countDocuments(query),
             Patient.find(query).skip(Number(from)).limit(Number(limit)).sort(sortQuery).exec()
-        ])
+        ]);
         return { total, patients };
     }
 

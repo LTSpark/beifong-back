@@ -1,5 +1,7 @@
 const { Schema, model } = require('mongoose');
 
+const AccesibilityConfigSchema = require('./AccesibilityConfig');
+
 const MedicSchema = Schema({
     name: {
         type: String,
@@ -13,7 +15,6 @@ const MedicSchema = Schema({
     },
     email: {
         type: String,
-        maxLength: 50,
         required: [ true, 'Email is required' ]
     },
     dni: {
@@ -23,17 +24,15 @@ const MedicSchema = Schema({
     },
     password: {
         type: String,
-        maxLength: 30,
-        minLength: 8,
-        match: /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[0-9a-zA-Z]{8,}$/,
         required: [ true, 'Password is required' ]
     },
     verified: {
         type: Boolean,
         default: false
     },
-    speciality: {
-        type: String
+    specialty: {
+        type: String,
+        required: [ true, 'Specialty is required' ]
     },
     startAttentionTime: {
         type: Date
@@ -43,10 +42,12 @@ const MedicSchema = Schema({
     },
     attentionCost: {
         type: Number,
-        min: 0
+        min: 0,
+        required: [ true, 'AttentionCost is required' ]
     },
     img: {
-        type: String
+        type: String,
+        required: [ true, 'Img is required' ]
     },
     clinicalAppointments: [
         {
@@ -57,6 +58,10 @@ const MedicSchema = Schema({
     accesibilityConfig: {
         type: AccesibilityConfigSchema,
         default: () => ({})
+    },
+    clinic: {
+        type: Schema.Types.ObjectId,
+        ref: 'Clinic'
     }
 }, {
     timestamps: true,

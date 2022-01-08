@@ -249,14 +249,70 @@ module.exports = {
                 type: "float",
                 description: "mount is going to be payed"
             },
-            suscriptionType: {
+            subscriptionType: {
                 type: "string",
                 description: "suscription type: 'annual', 'semi-annual', 'monthly'"
             }
         },
         example: {
-            mount: "61b2b2df969e14057e3837dc",
-            suscriptionType: "monthly"
+            mount: "0.2",
+            subscriptionType: "monthly"
+        }        
+    },
+
+    UpdateClinicInformation:{
+        type: "Object",
+        properties: {
+            slogan: {
+                type: "float",
+                description: "Clinic Slogan 15-125 words"
+            },
+            subSlogan: {
+                type: "string",
+                description: "Clinic Subslogan 25-200 words"
+            },
+            startAttentionDay: {
+                type: "string",
+                description: "First attention day of the week"
+            },
+            endAttentionDay: {
+                type: "string",
+                description: "Last attention day of the week"
+            },
+            startAttentionTime: {
+                type: "string",
+                description: "Open Hour"
+            },
+            endAttentionTime: {
+                type: "string",
+                description: "Closing Hour"
+            }
+        },
+        example: {
+            slogan: "",
+            subSlogan: "",
+            startAttentionDay: "Monday",
+            endAttentionDay: "Friday",
+            startAttentionTime: "09:00",
+            endAttentionTime: "19:00"
+        }        
+    },
+
+    UpdateClinicInformationResponse:{
+        type: "Object",
+        properties: {
+            ok: {
+                type: "boolean",
+                description: "indicates if operation was done correctly"
+            },
+            msg: {
+                type: "string",
+                description: "information about operation perfomed"
+            },
+        },
+        example: {
+            ok: true,
+            msg: "Update clinic information success!",
         }        
     }
 };

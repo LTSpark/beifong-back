@@ -25,5 +25,4 @@ module.exports = {
     "/patients/login/google":patientsLoginGoogle,
     "/patients/login":patientsLogin,
     "/medics/accesibility":medicsAccesibility
-    "/patients/login":patientsLogin
 };

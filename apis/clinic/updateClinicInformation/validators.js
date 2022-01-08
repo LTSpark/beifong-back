@@ -3,7 +3,7 @@ const { body } = require("express-validator");
 const { fieldValidation } = require("../../../middlewares/fieldValidation");
 const { optionalImgValidator } = require("../../../middlewares/fileValidators");
 const { authClinicToken, authVerifiedClinic, authSubscribedClinic } = require("../../../middlewares/authentication");
-const { validateHourMinutes, weekDays, validateWeekDay } = require("../../../middlewares/dateValidators");
+const { optionalValidateHourMinutes, weekDays, optionalValidateWeekDay } = require("../../../middlewares/dateValidators");
 
 const UpdateClinicInformationValidators = [
     authClinicToken,
@@ -16,8 +16,8 @@ const UpdateClinicInformationValidators = [
     body("startAttentionTime").optional().matches(/^(\d|0\d|1\d|2[0-3]):[0-5]\d$/),
     body("endAttentionTime").optional().matches(/^(\d|0\d|1\d|2[0-3]):[0-5]\d$/),
     fieldValidation,
-    validateHourMinutes,
-    validateWeekDay,
+    optionalValidateHourMinutes,
+    optionalValidateWeekDay,
     optionalImgValidator
 ];
 

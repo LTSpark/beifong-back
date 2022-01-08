@@ -63,7 +63,8 @@ class PatientService {
             throw errorFactory("Invalid password", 401);
         }
 
-        return generateJWT({ id: patient.id }, process.env.PATIENT_KEY, '3h');
+        const token = generateJWT({ id: patient.id }, process.env.PATIENT_KEY, '3h');
+        return { token, patient };
         
     }
 

@@ -5,7 +5,7 @@ const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Satur
 const HOUR = 0;
 const MINUTE = 1;
 
-const validateHourMinutes = (req, res, next) => {
+const optionalValidateHourMinutes = (req, res, next) => {
 
     const startAttentionTime = req.body?.startAttentionTime;
     const endAttentionTime = req.body?.endAttentionTime;
@@ -34,7 +34,7 @@ const validateHourMinutes = (req, res, next) => {
 
 }
 
-const validateWeekDay = (req, res, next) => {
+const optionalValidateWeekDay = (req, res, next) => {
 
     const startAttentionDay = req.body?.startAttentionDay;
     const endAttentionDay = req.body?.endAttentionDay;
@@ -54,12 +54,35 @@ const validateWeekDay = (req, res, next) => {
 
     next();
 
+}
 
+const validateHourMinutes = ( req, res, next ) => {
+
+    const startAttentionTime = req.body.startAttentionTime;
+    const endAttentionTime = req.body.endAttentionTime;
+
+    if (!startAttentionTime || !endAttentionTime) {
+        return customErrorResponse(res, "If sent one attention time, both have to be sent");
+    }
+
+    const startTime = startAttentionTime.split(":");
+    const endTime = endAttentionTime.split(":");
+
+    if (startTime[HOUR] > endTime[HOUR]) {
+        return customErrorResponse(res, "Start attention time hour cannot be major than end attention time one");
+    }
+
+    if ((startTime[HOUR] == endTime[HOUR]) && (startTime[MINUTE] > endTime[MINUTE])) {
+        return customErrorResponse(res, "Start attention time minutes cannot be major than end attention time ones");
+    }
+
+    next();
 
 }
 
 module.exports = {
+    optionalValidateHourMinutes,
+    optionalValidateWeekDay,
     validateHourMinutes,
-    validateWeekDay,
     weekDays
 }

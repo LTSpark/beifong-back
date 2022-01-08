@@ -24,7 +24,8 @@ const {
 
 const {
   SetMedicAccesibility,
-  SetMedicAccesibilityResponse
+  SetMedicAccesibilityResponse,
+  TokenMedicResponse
 } = require("./schemas/Medic");
 
 module.exports = 
@@ -40,6 +41,7 @@ module.exports =
     ClinicSuscription,
     UpdateClinicInformation,
     UpdateClinicInformationResponse,
+
     PostPatient,
     PostPatientResponse,
     TokenPatientResponse,
@@ -47,9 +49,11 @@ module.exports =
     PatientGoogleLoginResponse,
     PatientLogin,
     PatientLoginResponse, 
+    PatientLoginResponse,
+
     SetMedicAccesibility,
     SetMedicAccesibilityResponse,
-    PatientLoginResponse
+    TokenMedicResponse
 }
   
 

@@ -1,5 +1,6 @@
 const Medic = require("../schemas/Medic");
 const MedicService = require("../services/medic.service");
+const { getJWTPayload } = require('../utils/utils');
 const { customErrorResponse } = require("../utils/responses");
 
 const medicExists = async id => {
@@ -31,9 +32,18 @@ const medicEmailExists = async ( req, res, next ) => {
     
 }
 
+const alreadyVerifiedMedicToken = async token => {
+    const { id } = getJWTPayload(token, process.env.VERIFY_KEY);
+    const { verified } = await MedicService.findById(id);
+    if( verified ) {
+        throw new Error(`Medic with ${id} id is already verified on database`);
+    }
+}
+
 module.exports = {
     medicExists,
     medicDniExists,
-    medicEmailExists
+    medicEmailExists,
+    alreadyVerifiedMedicToken
 }
 

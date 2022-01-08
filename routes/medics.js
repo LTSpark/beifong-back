@@ -15,13 +15,18 @@ const GetMedicsValidators = require("../apis/medic/getMedics/validators");
 const GetMedicFlow = require("../apis/medic/getMedic/flow");
 const GetMedicValidators = require("../apis/medic/getMedic/validators");
 
+const VerifyMedicFlow = require("../apis/medic/verifyMedic/flow");
+const VerifyMedicValidators = require("../apis/medic/verifyMedic/validators");
+
 const router = Router();
 
 router.post('/', PostMedicValidators,PostMedicFlow);
-router.put('/accesibility', SetAccesibilityValidators,SetAccesibilityFlow);
 router.post('/login/:clinicId', LoginMedicValidators,LoginMedicFlow);
 
 router.get('/:clinicId/clinics', GetMedicsValidators, GetMedicsFlow);
 router.get('/:id', GetMedicValidators, GetMedicFlow);
+
+router.put('/verify', VerifyMedicValidators, VerifyMedicFlow);
+router.put('/accesibility', SetAccesibilityValidators,SetAccesibilityFlow);
 
 module.exports = router;

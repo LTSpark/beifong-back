@@ -8,6 +8,10 @@ module.exports =
         {
             name:"Patient",
             description:"API to manage patient operations"
+        },
+        {
+            name:"Medic",
+            description:"API to manage medic operations"
         }
     ]
 ;

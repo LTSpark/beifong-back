@@ -9,6 +9,7 @@ const patients = require("./Patients/patients")["/patients"];
 const patientsVerify = require("./Patients/patientsVerify")["/patients/verify"];
 const patientsLoginGoogle = require("./Patients/loginGoogle")["/patients/login/google"];
 
+const medicsAccesibility = require("./Medics/accesibility")["/medics/accesibility"]
 module.exports = {
     "/clinics": clinics,
     "/clinics/resend": clinicsResend,
@@ -19,5 +20,6 @@ module.exports = {
 
     "/patients/":patients,
     "/patients/verify":patientsVerify,
-    "/patients/login/google":patientsLoginGoogle
+    "/patients/login/google":patientsLoginGoogle,
+    "/medics/accesibility":medicsAccesibility
 };

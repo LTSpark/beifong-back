@@ -72,4 +72,11 @@ const MedicSchema = Schema({
     versionKey: false
 });
 
+MedicSchema.methods.toJSON = function() {
+    const { _id, ...medic } = this.toObject();
+    medic.medicId = _id;
+    delete medic.accesibilityConfig._id;
+    return medic;
+}
+
 module.exports = model('Medic', MedicSchema);

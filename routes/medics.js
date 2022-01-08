@@ -7,17 +7,17 @@ const PostMedicFlow = require('../apis/medic/postMedic/flow');
 const PostMedicValidators = require('../apis/medic/postMedic/validators');
 
 const GetMedicsFlow = require("../apis/medic/getMedics/flow");
-const GetMedicsValidators = require("../apis/medic/getMedics/validator");
+const GetMedicsValidators = require("../apis/medic/getMedics/validators");
 
 const GetMedicFlow = require("../apis/medic/getMedic/flow");
-const GetMedicValidators = require("../apis/medic/getMedic/validator");
+const GetMedicValidators = require("../apis/medic/getMedic/validators");
 
 const router = Router();
 
 router.post('/', PostMedicValidators,PostMedicFlow);
 router.post('/login/:clinicId', LoginMedicValidators,LoginMedicFlow);
 
-router.get('/', GetMedicsValidators,GetMedicsFlow);
-router.get('/:id', GetMedicValidators,GetMedicFlow);
+router.get('/:clinicId/clinics', GetMedicsValidators, GetMedicsFlow);
+router.get('/:id', GetMedicValidators, GetMedicFlow);
 
 module.exports = router;

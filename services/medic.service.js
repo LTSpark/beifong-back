@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 
 const Medic = require("../schemas/Medic");
-const { encryptPassword, errorFactory, generateJWT } = require("../utils/utils");
+const { encryptPassword, errorFactory, generateJWT, parseSort } = require("../utils/utils");
 
 class MedicService {
 

@@ -5,7 +5,7 @@ const MedicService = require("../../../services/medic.service");
 
 const GetMedicFlow = async ( req, res ) => {
     try{
-        const medic = await MedicService.findByID(req.params.id);
+        const medic = await MedicService.findById(req.params.id);
         return res.status(200).json({
             medic
         });

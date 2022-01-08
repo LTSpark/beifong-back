@@ -21,7 +21,7 @@ module.exports = {
                 content: {
                     "application/json": {
                         schema: {
-                            $ref: "#/components/schemas/PatientGoogleLogin"
+                            $ref: "#/components/schemas/SetMedicAccesibility"
                         }
                     }
                 }
@@ -31,7 +31,7 @@ module.exports = {
                     description: "Successful login",
                     content: {
                         "application/json": {
-                            $ref: "#/components/schemas/PatientGoogleLoginResponse"
+                            $ref: "#/components/schemas/SetMedicAccesibilityResponse"
                         }
                     }
                 },                

@@ -1,5 +1,6 @@
 const ClinicService = require("../services/clinic.service");
 const PatientService = require("../services/patient.service");
+const medicService = require("../services/medic.service");
 
 const { customErrorResponse, errorResponse } = require("../utils/responses");
 const { getJWTPayload } = require("../utils/utils");
@@ -82,8 +83,8 @@ const authMedicToken = async ( req, res, next ) => {
     const token = authHeader.substring(7, authHeader.length);
 
     try {
-        const { id } = getJWTPayload(token, process.env.PATIENT_KEY);
-        const medic = await MedicService.findByID(id);
+        const { id } = getJWTPayload(token, process.env.MEDIC_KEY);
+        const medic = await medicService.findById(id);
         if(!medic){
             return customErrorResponse(res, "Invalid token: medic not found", 403);
         }

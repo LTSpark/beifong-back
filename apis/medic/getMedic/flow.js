@@ -1,7 +1,6 @@
+const MedicService = require("../../../services/medic.service");
 
 const { errorResponse } = require("../../../utils/responses");
-
-const MedicService = require("../../../services/medic.service");
 
 const GetMedicFlow = async ( req, res ) => {
     try{

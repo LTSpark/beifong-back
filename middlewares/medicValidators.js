@@ -7,21 +7,33 @@ const medicExists = async id => {
     if(!medic) throw new Error(`Medic with id ${id} not exists on database`);
 }
 
-const medicAlreadyCreatedOnClinic = async ( req, res, next )=> {
+const medicDniExists = async ( req, res, next ) => {
 
-    const medic = await MedicService.findOne({ 
+    const medic = await MedicService.findOne({
         clinic: req.clinic.id,
-        dni: req.body.dni,
+        dni: req.body.dni
+    });
+
+    if(medic.length != 0) return customErrorResponse(res, `Medic with DNI ${req.body.dni} already exists on ${req.clinic.name}`);
+    next();
+
+}
+
+const medicEmailExists = async ( req, res, next ) => {
+
+    const medic = await MedicService.findOne({
+        clinic: req.clinic.id,
         email: req.body.email
     });
 
-    if(medic.length != 0) return customErrorResponse(res, `Medic already exists on clinic`);
-
+    if(medic.length != 0) return customErrorResponse(res, `Medic with email ${req.body.email} already exists on ${req.clinic.name}`);
     next();
+    
 }
 
 module.exports = {
     medicExists,
-    medicAlreadyCreatedOnClinic
+    medicDniExists,
+    medicEmailExists
 }
 

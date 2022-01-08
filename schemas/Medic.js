@@ -45,6 +45,10 @@ const MedicSchema = Schema({
         min: 0,
         required: [ true, 'AttentionCost is required' ]
     },
+    attentionTime: {
+        type: Number,
+        min: 1
+    },
     img: {
         type: String,
         required: [ true, 'Img is required' ]
@@ -67,5 +71,12 @@ const MedicSchema = Schema({
     timestamps: true,
     versionKey: false
 });
+
+MedicSchema.methods.toJSON = function() {
+    const { _id, ...medic } = this.toObject();
+    medic.medicId = _id;
+    delete medic.accesibilityConfig._id;
+    return medic;
+}
 
 module.exports = model('Medic', MedicSchema);

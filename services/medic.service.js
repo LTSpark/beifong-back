@@ -1,7 +1,7 @@
 const bcrypt = require("bcryptjs");
 
 const Medic = require("../schemas/Medic");
-const { encryptPassword } = require("../utils/utils");
+const { encryptPassword, errorFactory, generateJWT, parseSort } = require("../utils/utils");
 
 class MedicService {
 
@@ -58,6 +58,19 @@ class MedicService {
             Medic.find(query).skip(Number(from)).limit(Number(limit)).sort(sortQuery).exec()
         ]);
         return { total, medics };
+    }
+
+    async login(clinic, email, password){
+        const medic = await Medic.findOne({ clinic, email }).exec();
+        if(!medic){
+            throw errorFactory("Medic not found", 401);
+        }
+        if(!bcrypt.compareSync(password, medic.password)){
+            throw errorFactory("Invalid password", 401);
+        }
+
+        return generateJWT({ id: medic.id }, process.env.MEDIC_KEY, '3h')
+
     }
 
 }

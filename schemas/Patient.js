@@ -43,4 +43,11 @@ const PatientSchema = Schema({
     versionKey: false
 });
 
+PatientSchema.methods.toJSON = function() {
+    const { _id, ...patient } = this.toObject();
+    patient.patientId = _id;
+    delete patient.accesibilityConfig._id;
+    return patient;
+}
+
 module.exports = model('Patient', PatientSchema);

@@ -40,17 +40,16 @@ module.exports =
     ClinicSuscription,
     UpdateClinicInformation,
     UpdateClinicInformationResponse,
-
     PostPatient,
     PostPatientResponse,
     TokenPatientResponse,
     PatientGoogleLogin,
     PatientGoogleLoginResponse,
     PatientLogin,
-    PatientLoginResponse,
-    
+    PatientLoginResponse, 
     SetMedicAccesibility,
-    SetMedicAccesibilityResponse
+    SetMedicAccesibilityResponse,
+    PatientLoginResponse
 }
   
 

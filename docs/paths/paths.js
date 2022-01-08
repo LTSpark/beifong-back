@@ -11,6 +11,7 @@ const patientsVerify = require("./Patients/patientsVerify")["/patients/verify"];
 const patientsLoginGoogle = require("./Patients/loginGoogle")["/patients/login/google"];
 const patientsLogin = require("./Patients/login")["/patients/login"];
 
+const medicsAccesibility = require("./Medics/accesibility")["/medics/accesibility"]
 module.exports = {
     "/clinics": clinics,
     "/clinics/resend": clinicsResend,
@@ -19,9 +20,10 @@ module.exports = {
     "/clinics/:id": clinicsId,
     "/clinics/subscribe":clinicsSubscribe,
     "/clinics/information":clinicsInformation,
-
     "/patients/":patients,
     "/patients/verify":patientsVerify,
     "/patients/login/google":patientsLoginGoogle,
+    "/patients/login":patientsLogin,
+    "/medics/accesibility":medicsAccesibility
     "/patients/login":patientsLogin
 };

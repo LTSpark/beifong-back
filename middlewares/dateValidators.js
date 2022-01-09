@@ -56,13 +56,13 @@ const optionalValidateWeekDay = (req, res, next) => {
 
 }
 
-const validateHourMinutes = ( req, res, next ) => {
+const validateMedicAttentionTime = ( req, res, next ) => {
 
     const startAttentionTime = req.body.startAttentionTime;
     const endAttentionTime = req.body.endAttentionTime;
 
-    if (!startAttentionTime || !endAttentionTime) {
-        return customErrorResponse(res, "If sent one attention time, both have to be sent");
+    if (!startAttentionTime && !endAttentionTime) {
+        return customErrorResponse(res, "Both attention time have to be sent");
     }
 
     const startTime = startAttentionTime.split(":");
@@ -83,6 +83,6 @@ const validateHourMinutes = ( req, res, next ) => {
 module.exports = {
     optionalValidateHourMinutes,
     optionalValidateWeekDay,
-    validateHourMinutes,
+    validateMedicAttentionTime,
     weekDays
 }

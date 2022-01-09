@@ -17,7 +17,7 @@ const LoginClinicFlow = async (req, res) => {
 
     } catch (error) {
         console.error(error);
-        return errorResponse(res, "Contact database administrator", error.message);
+        return errorResponse(res, "Contact database administrator", error.message, error.code);
     }
 }
 

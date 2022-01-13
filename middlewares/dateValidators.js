@@ -1,3 +1,4 @@
+const ClinicService = require("../services/clinic.service");
 const { customErrorResponse } = require("../utils/responses");
 
 const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -80,9 +81,49 @@ const validateMedicAttentionTime = ( req, res, next ) => {
 
 }
 
+const validMedicAttentionTimeClinic = async ( req, res, next ) => {
+
+    const { 
+        startAttentionTime : clinicStartAttentionTime, 
+        endAttentionTime: clinicEndAttentionTime 
+    } = await ClinicService.findById(req.medic.clinic);
+
+    const startTime = req.body.startAttentionTime.split(":");
+    const endTime = req.body.endAttentionTime.split(":");
+    const clinicStartTime = clinicStartAttentionTime.split(":");
+    const clinicEndTime = clinicEndAttentionTime.split(":");
+
+    const clinicStartHour = Number(clinicStartTime[HOUR]);
+    const clinicEndHour = Number(clinicEndTime[HOUR]);
+    const clinicStartMinutes = Number(clinicStartTime[MINUTE]);
+    const clinicEndMinutes = Number(clinicEndTime[MINUTE]);
+
+    const startHour = Number(startTime[HOUR]);
+    const endHour = Number(endTime[HOUR]);
+    const startMinutes = Number(startTime[MINUTE]);
+    const endMinutes = Number(endTime[MINUTE]);
+
+    
+    if ( ( startHour < clinicStartHour ) || ( endHour > clinicEndHour ) ) {
+        return customErrorResponse(res, "Hour has to be inside clinic attention time");
+    }
+
+    if( ( startHour == clinicStartHour ) && ( startMinutes < clinicStartMinutes ) ) {
+        return customErrorResponse( res, "Start minute has to be between clinic attention time");
+    }
+
+    if( ( endHour == clinicEndHour ) && ( endMinutes > clinicEndMinutes ) ) {
+        return customErrorResponse( res, "End minute has to be inside clinic attention time");
+    } 
+
+    next();
+
+}
+
 module.exports = {
     optionalValidateHourMinutes,
     optionalValidateWeekDay,
     validateMedicAttentionTime,
+    validMedicAttentionTimeClinic,
     weekDays
 }

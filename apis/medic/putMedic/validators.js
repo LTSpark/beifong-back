@@ -4,6 +4,7 @@ const { validateMedicAttentionTime, validMedicAttentionTimeClinic } = require(".
 const { fieldValidation } = require("../../../middlewares/fieldValidation");
 const { optionalImgValidator } = require("../../../middlewares/fileValidators");
 const { authMedicToken, authVerifiedMedic } = require("../../../middlewares/authentication");
+const { notIncomingAppointments } = require("../../../middlewares/medicValidators");
 
 const PutMedicValidators = [
     authMedicToken,
@@ -17,7 +18,8 @@ const PutMedicValidators = [
     fieldValidation,
     validateMedicAttentionTime,
     validMedicAttentionTimeClinic,
-    optionalImgValidator
+    optionalImgValidator,
+    notIncomingAppointments
 ];
 
 module.exports = PutMedicValidators;

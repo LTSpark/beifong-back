@@ -1,5 +1,8 @@
+const moment = require("moment")
+
 const MedicService = require("../services/medic.service");
 const ClinicService = require("../services/clinic.service");
+const ClinicalAppointmentService = require("../services/clinicalAppointment.service");
 
 const { customErrorResponse } = require("../utils/responses");
 
@@ -67,11 +70,29 @@ const medicIsUpdated = async medicId => {
 
 }
 
+const notIncomingAppointments = async ( req, res, next ) => {
+
+    const clinicalAppointments = await ClinicalAppointmentService.getClinicalAppointmentsByMedic(req.medic.id);
+    const currentDate = moment( new Date() );
+
+    if ( clinicalAppointments.length === 0 ) return next();
+
+    const clinicalAppointment = await clinicalAppointments.find( appointment => {
+        const startAttentionDate = moment(appointment.startAttentionDate); 
+        if ( startAttentionDate.isAfter(currentDate) ) return appointment;
+    });
+
+    if ( clinicalAppointment  ) return customErrorResponse(res, "Cannot update schedule while having pending appointments", 403);
+    next();
+    
+}
+
 module.exports = {
     medicExists,
     medicDniExists,
     medicEmailExists,
     medicClinicExists,
-    medicIsUpdated
+    medicIsUpdated,
+    notIncomingAppointments
 }
 

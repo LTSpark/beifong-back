@@ -21,6 +21,10 @@ class ClinicalAppointmentService {
         return ClinicalAppointment.find({ medic: medicId }).exec();
     }
 
+    findOne( query ) {
+        return ClinicalAppointment.findOne({ query }).exec();
+    }
+
 }
 
 const clinicalAppointmentService = new ClinicalAppointmentService();

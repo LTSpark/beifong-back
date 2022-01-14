@@ -1,5 +1,9 @@
 const ClinicalAppointment = require("../schemas/ClinicalAppointment");
 
+const { 
+    parseSort
+} = require('../utils/utils');
+
 class ClinicalAppointmentService {
 
     saveClinicalAppointment( patientId, data ){
@@ -55,6 +59,15 @@ class ClinicalAppointmentService {
             );
         }
         return clinicalAppointment;
+    }
+
+    async find(query, from=0, limit=5, sort="_id", order="asc") {
+        const sortQuery = parseSort(sort, order);
+        const [ total, clinicalAppointments ] = await Promise.all([
+            ClinicalAppointment.countDocuments(query),
+            ClinicalAppointment.find(query).skip(Number(from)).limit(Number(limit)).sort(sortQuery).exec()
+        ]);
+        return { total, clinicalAppointments };
     }
 
 }

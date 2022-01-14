@@ -9,7 +9,7 @@ const {
 
 class PatientService {
 
-    savePatient(data, google=false){
+    savePatient(data){
         const { name, email, password } = data;
 
         const patient = new Patient({

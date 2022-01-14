@@ -1,5 +1,6 @@
-const Medic = require("../schemas/Medic");
 const MedicService = require("../services/medic.service");
+const ClinicService = require("../services/clinic.service");
+
 const { customErrorResponse } = require("../utils/responses");
 
 const medicExists = async id => {
@@ -31,9 +32,46 @@ const medicEmailExists = async ( req, res, next ) => {
     
 }
 
+const medicClinicExists = async ( req, res, next ) => {
+
+    const { clinicId, medicId } = req.body;
+
+    const clinic = await ClinicService.findOne({
+        _id: clinicId,
+        medics: {
+            $in: medicId
+        }
+    });
+
+    if ( !clinic ) return customErrorResponse(res, "Medic does not belong to clinic");
+
+    const medic = await MedicService.findById( medicId );
+
+    if ( !medic.verified ) return customErrorResponse(res, "Unverified medics cannot attend appointments");
+
+    next();
+
+}
+
+const medicIsUpdated = async medicId => {
+
+    const { 
+        startAttentionTime, 
+        endAttentionTime, 
+        attentionTime
+    } = await MedicService.findById(medicId);
+
+    if ( !startAttentionTime && !endAttentionTime && !attentionTime ) {
+        throw new Error(`Medic information is not updated, please select another`);
+    }
+
+}
+
 module.exports = {
     medicExists,
     medicDniExists,
-    medicEmailExists
+    medicEmailExists,
+    medicClinicExists,
+    medicIsUpdated
 }
 

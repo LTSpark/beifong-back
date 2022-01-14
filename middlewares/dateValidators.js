@@ -1,4 +1,9 @@
+const moment = require("moment");
+
 const ClinicService = require("../services/clinic.service");
+const MedicService = require("../services/medic.service");
+const ClinicalAppointmentService = require("../services/clinicalAppointment.service");
+
 const { customErrorResponse } = require("../utils/responses");
 
 const weekDays = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
@@ -102,7 +107,6 @@ const validMedicAttentionTimeClinic = async ( req, res, next ) => {
     const endHour = Number(endTime[HOUR]);
     const startMinutes = Number(startTime[MINUTE]);
     const endMinutes = Number(endTime[MINUTE]);
-
     
     if ( ( startHour < clinicStartHour ) || ( endHour > clinicEndHour ) ) {
         return customErrorResponse(res, "Hour has to be inside clinic attention time");
@@ -120,10 +124,103 @@ const validMedicAttentionTimeClinic = async ( req, res, next ) => {
 
 }
 
+const sanitizeDate = async ( req, res, next ) => {
+
+    const { startAttentionDate : reqStartAttentionDate, clinicId, medicId } = req.body;
+
+    const dateString = reqStartAttentionDate.split(" ")[0];
+
+    const currentDate = moment( new Date() );
+    const startAttentionDate = moment( reqStartAttentionDate );
+
+    const difference = moment.duration( startAttentionDate.diff(currentDate) );
+
+    if ( difference.asMinutes() < 0 ) return customErrorResponse(res, "Past dates cannot be set to post Clinical Appointments");
+
+    const { 
+        startAttentionTime : clinicStartAttentionTime,
+        endAttentionTime : clinicEndAttentionTime
+    } = await ClinicService.findById(clinicId);
+
+    const {
+        startAttentionTime : medicStartAttentionTime,
+        endAttentionTime : medicEndAttentionTime,
+        attentionTime : medicAttentionTime,
+        attentionCost : mount
+    } = await MedicService.findById(medicId);
+
+    const clinicStartHour = clinicStartAttentionTime.split(":")[HOUR];
+    const clinicEndHour = clinicEndAttentionTime.split(":")[HOUR];
+    const clinicStartMinutes = clinicStartAttentionTime.split(":")[MINUTE];
+    const clinicEndMinutes = clinicEndAttentionTime.split(":")[MINUTE];
+
+    const medicStartHour = medicStartAttentionTime.split(":")[HOUR];
+    const medicEndHour = medicEndAttentionTime.split(":")[HOUR];
+    const medicStartMinutes = medicStartAttentionTime.split(":")[MINUTE];
+    const medicEndMinutes = medicEndAttentionTime.split(":")[MINUTE];
+
+    const clinicStartComparisonDate = moment(`${dateString} ${clinicStartHour}:${clinicStartMinutes}:00`);
+    const clinicEndComparisonDate = moment(`${dateString} ${clinicEndHour}:${clinicEndMinutes}:00`);
+
+    const medicStartComparisonDate = moment(`${dateString} ${medicStartHour}:${medicStartMinutes}:00`);
+    const medicEndComparisonDate = moment(`${dateString} ${medicEndHour}:${medicEndMinutes}:00`);
+
+    const endAttentionDate = moment(startAttentionDate).add( Number(medicAttentionTime), 'minutes');
+
+    if ( !startAttentionDate.isBetween(clinicStartComparisonDate, clinicEndComparisonDate) || !endAttentionDate.isBetween(clinicStartComparisonDate, clinicEndComparisonDate)) {
+        return customErrorResponse(res, "Attention time has to be between clinic attention time");
+    }
+
+    if ( !startAttentionDate.isBetween(medicStartComparisonDate, medicEndComparisonDate) || !endAttentionDate.isBetween(medicStartComparisonDate, medicEndComparisonDate) ) {
+        return customErrorResponse(res, "Attention time has to be between medic attention time");
+    }
+
+    req.body.startAttentionDate = startAttentionDate;
+    req.body.endAttentionDate = endAttentionDate;
+    req.body.mount = mount;
+
+    next();
+
+}
+
+const notMedicAppointmentsOnAttentionDate = async ( req, res, next ) => {
+
+    const { startAttentionDate, endAttentionDate, medicId } = req.body; 
+    const clinicalAppointments = await ClinicalAppointmentService.getClinicalAppointmentsByMedic(medicId);
+
+    clinicalAppointments.forEach( clinicalAppointment => {
+        
+        let { 
+            startAttentionDate: currentStartAttentionDate, 
+            endAttentionDate : currentEndAttentionDate 
+        } = clinicalAppointment;
+
+        currentStartAttentionDate = moment(currentStartAttentionDate);
+        currentEndAttentionDate = moment(currentEndAttentionDate);
+
+        console.log({ currentStartAttentionDate, currentEndAttentionDate, startAttentionDate, endAttentionDate });
+        console.log(startAttentionDate.isBetween(currentStartAttentionDate, currentEndAttentionDate), endAttentionDate.isBetween(currentStartAttentionDate, currentEndAttentionDate))
+
+        if ( startAttentionDate.isSame(currentStartAttentionDate)  || endAttentionDate.isSame(currentEndAttentionDate) ) {
+            return customErrorResponse(res, "Clinical Appointment date is the same than one that is already created");
+        }
+
+        if ( startAttentionDate.isBetween(currentStartAttentionDate, currentEndAttentionDate) || endAttentionDate.isBetween(currentStartAttentionDate, currentEndAttentionDate)){
+            return customErrorResponse(res, "Clinical Appointment currently exists on that time");
+        }
+
+    });
+
+    next();
+
+}
+
 module.exports = {
     optionalValidateHourMinutes,
     optionalValidateWeekDay,
     validateMedicAttentionTime,
     validMedicAttentionTimeClinic,
+    sanitizeDate,
+    notMedicAppointmentsOnAttentionDate,
     weekDays
 }

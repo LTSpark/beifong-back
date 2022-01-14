@@ -188,7 +188,7 @@ const notMedicAppointmentsOnAttentionDate = async ( req, res, next ) => {
     const { startAttentionDate, endAttentionDate, medicId } = req.body; 
     const clinicalAppointments = await ClinicalAppointmentService.getClinicalAppointmentsByMedic(medicId);
 
-    clinicalAppointments.forEach( clinicalAppointment => {
+    const appointmentExists = await clinicalAppointments.find( clinicalAppointment => {
         
         let { 
             startAttentionDate: currentStartAttentionDate, 
@@ -202,14 +202,16 @@ const notMedicAppointmentsOnAttentionDate = async ( req, res, next ) => {
         console.log(startAttentionDate.isBetween(currentStartAttentionDate, currentEndAttentionDate), endAttentionDate.isBetween(currentStartAttentionDate, currentEndAttentionDate))
 
         if ( startAttentionDate.isSame(currentStartAttentionDate)  || endAttentionDate.isSame(currentEndAttentionDate) ) {
-            return customErrorResponse(res, "Clinical Appointment date is the same than one that is already created");
+            return clinicalAppointment;
         }
 
         if ( startAttentionDate.isBetween(currentStartAttentionDate, currentEndAttentionDate) || endAttentionDate.isBetween(currentStartAttentionDate, currentEndAttentionDate)){
-            return customErrorResponse(res, "Clinical Appointment currently exists on that time");
+            return clinicalAppointment;
         }
 
     });
+
+    if ( appointmentExists ) return customErrorResponse(res, "Clinical Appointment currently exists on that time");
 
     next();
 

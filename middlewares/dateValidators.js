@@ -1,5 +1,4 @@
 const moment = require("moment");
-const momentTimezone = require("moment-timezone");
 
 const ClinicService = require("../services/clinic.service");
 const MedicService = require("../services/medic.service");
@@ -132,10 +131,9 @@ const sanitizeDate = async ( req, res, next ) => {
     const dateString = reqStartAttentionDate.split(" ")[0];
 
     const currentDate = moment().utc().unix();
-    const UTCStartAttentionDate = moment( reqStartAttentionDate).utc();
     const startAttentionDate = moment( reqStartAttentionDate );
 
-    const difference = moment.duration( UTCStartAttentionDate.diff(currentDate) );
+    const difference = moment.duration( startAttentionDate.diff(currentDate) );
 
     if ( difference.asMinutes() < 0 ) return customErrorResponse(res, "Past dates cannot be set to post Clinical Appointments");
 

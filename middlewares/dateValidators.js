@@ -131,15 +131,13 @@ const sanitizeDate = async ( req, res, next ) => {
 
     const dateString = reqStartAttentionDate.split(" ")[0];
 
-    const currentDate = momentTimezone.tz("America/Lima");
+    const currentDate = moment().utc().unix();
+    const UTCStartAttentionDate = moment( reqStartAttentionDate).utc();
     const startAttentionDate = moment( reqStartAttentionDate );
 
-    const difference = moment.duration( startAttentionDate.diff(currentDate) );
-    console.log(currentDate, startAttentionDate,difference.asMinutes())
+    const difference = moment.duration( UTCStartAttentionDate.diff(currentDate) );
 
     if ( difference.asMinutes() < 0 ) return customErrorResponse(res, "Past dates cannot be set to post Clinical Appointments");
-
-    if ( startAttentionDate.isBefore(currentDate) ) return customErrorResponse(res, "Past dates cannot be set to post Clinical Appointments");
 
     const { 
         startAttentionTime : clinicStartAttentionTime,

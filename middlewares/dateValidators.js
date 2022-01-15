@@ -130,7 +130,7 @@ const sanitizeDate = async ( req, res, next ) => {
 
     const dateString = reqStartAttentionDate.split(" ")[0];
 
-    const currentDate = moment().utc().valueOf();
+    const currentDate = moment();
     const startAttentionDate = moment( reqStartAttentionDate );
 
     console.log(currentDate, startAttentionDate)

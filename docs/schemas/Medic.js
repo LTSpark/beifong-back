@@ -55,4 +55,27 @@ module.exports = {
         }
     },
 
+    TokenMedicResponse: {
+        type: "Object",
+        properties: {
+            ok: {
+                type: "boolean",
+                description: "indicates if operation was done correctly"
+            },
+            msg: {
+                type: "string",
+                description: "information about operation perfomed"
+            },
+            token: {
+                type: "string",
+                description: "Token of the Medic session"
+            }
+        },
+        example: {
+            ok: true,
+            msg: "Response message",
+            token: "token"
+        }
+    },
+
 }

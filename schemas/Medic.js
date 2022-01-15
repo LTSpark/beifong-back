@@ -35,10 +35,10 @@ const MedicSchema = Schema({
         required: [ true, 'Specialty is required' ]
     },
     startAttentionTime: {
-        type: Date
+        type: String
     },
     endAttentionTime: {
-        type: Date
+        type: String
     },
     attentionCost: {
         type: Number,

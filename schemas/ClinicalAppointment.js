@@ -1,11 +1,11 @@
 const { Schema, model } = require('mongoose');
 
 const ClinicalAppointmentSchema = Schema({
-    startAttentionTime: {
+    startAttentionDate: {
         type: Date,
         required: [true, 'StartAttentionTime is required']
     },
-    endAttentionTime: {
+    endAttentionDate: {
         type: Date,
         required: [true, 'EndAttentionTime is required']
     },
@@ -25,14 +25,6 @@ const ClinicalAppointmentSchema = Schema({
     medic: {
         type: Schema.Types.ObjectId,
         ref: 'Medic'
-    },
-    createdAt: {
-        type: Date,
-        default: Date.now()
-    },
-    updatedAt: {
-        type: Date,
-        default: Date.now()
     }
 }, {
     timestamps: true,

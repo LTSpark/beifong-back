@@ -7,16 +7,17 @@ const LoginClinicFlow = async (req, res) => {
 
     try {
         
-        const token = await ClinicService.login(email, password);
+        const { token, clinic } = await ClinicService.login(email, password);
         return res.status(200).json({
             ok: true,
             msg: "Clinic login success",
-            token
+            token,
+            clinic
         });
 
     } catch (error) {
         console.error(error);
-        return errorResponse(res, "Contact database administrator", error.message);
+        return errorResponse(res, "Contact database administrator", error.message, error.code);
     }
 }
 

@@ -69,7 +69,8 @@ class MedicService {
             throw errorFactory("Invalid password", 401);
         }
 
-        return generateJWT({ id: medic.id }, process.env.MEDIC_KEY, '3h')
+        const token = generateJWT({ id: medic.id }, process.env.MEDIC_KEY, '3h');
+        return { medic, token };
 
     }
 

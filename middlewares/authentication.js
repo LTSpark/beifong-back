@@ -28,14 +28,14 @@ const authClinicToken = async(req, res, next) => {
     }
 }
 
-const authVerifiedClinic = async ( req, res, next ) => {
+const authVerifiedClinic = ( req, res, next ) => {
     if(!req.clinic.verified){
         return customErrorResponse(res, "Account must be verified to access this", 403);
     }
     next();
 }
 
-const authSubscribedClinic = async ( req, res, next ) => {
+const authSubscribedClinic = ( req, res, next ) => {
     const currentTime = new Date();
     if(!req.clinic.subscriptionPaymentExpires){
         return customErrorResponse(res, "No subscription found", 403);
@@ -71,6 +71,13 @@ const authPatientToken = async ( req, res, next ) => {
     }
 }
 
+const authVerifiedPatient = ( req, res, next ) => {
+    if (!req.patient.verified) {
+        return customErrorResponse(res, "Patient must be verified to do this", 403);
+    }
+    next();
+}
+
 const authMedicToken = async ( req, res, next ) => {
 
     const authHeader = req.header("Authorization");
@@ -96,10 +103,19 @@ const authMedicToken = async ( req, res, next ) => {
     }
 }
 
+const authVerifiedMedic = ( req, res, next ) => {
+    if (!req.medic.verified) {
+        return customErrorResponse(res, "Medic must be verified to do this", 403);
+    }
+    next();
+}
+
 module.exports = {
     authClinicToken,
     authVerifiedClinic,
     authSubscribedClinic,
     authPatientToken,
-    authMedicToken
+    authVerifiedPatient,
+    authMedicToken,
+    authVerifiedMedic
 }

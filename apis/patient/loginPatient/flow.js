@@ -4,11 +4,12 @@ const { errorResponse } = require("../../../utils/responses");
 
 const LoginPatientFlow = async ( req, res ) => {
     try {
-        const token = await PatientService.login(req.body.email, req.body.password);
+        const { token, patient } = await PatientService.login(req.body.email, req.body.password);
         return res.status(200).json({
             ok: true,
             msg: "Login patient success!",
-            token
+            token,
+            patient
         })
     }
     catch(error){

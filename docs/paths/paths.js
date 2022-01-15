@@ -21,12 +21,10 @@ module.exports = {
     "/clinics/:id": clinicsId,
     "/clinics/subscribe":clinicsSubscribe,
     "/clinics/information":clinicsInformation,
-
     "/patients/":patients,
     "/patients/verify":patientsVerify,
     "/patients/login/google":patientsLoginGoogle,
     "/patients/login":patientsLogin,
-
     "/medics/accesibility":medicsAccesibility,
     "/medics/verify":medicsVerify
 };

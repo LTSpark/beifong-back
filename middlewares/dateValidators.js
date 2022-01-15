@@ -130,12 +130,13 @@ const sanitizeDate = async ( req, res, next ) => {
 
     const dateString = reqStartAttentionDate.split(" ")[0];
 
-    const currentDate = moment().utc().unix();
+    const currentDate = moment();
     const startAttentionDate = moment( reqStartAttentionDate );
 
     const difference = moment.duration( startAttentionDate.diff(currentDate) );
 
     if ( difference.asMinutes() < 0 ) return customErrorResponse(res, "Past dates cannot be set to post Clinical Appointments");
+    if ( difference.asDays() < 1 ) return customErrorResponse(res, "Clinical Appointments has to be created with 24 hours of anticipation");
 
     const { 
         startAttentionTime : clinicStartAttentionTime,

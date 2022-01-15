@@ -135,7 +135,7 @@ const sanitizeDate = async ( req, res, next ) => {
     const startAttentionDate = moment( reqStartAttentionDate );
 
     const difference = moment.duration( startAttentionDate.diff(currentDate) );
-    console.log(currentDate, startAttentionDate,difference)
+    console.log(currentDate, startAttentionDate,difference.asMinutes())
 
     if ( difference.asMinutes() < 0 ) return customErrorResponse(res, "Past dates cannot be set to post Clinical Appointments");
 

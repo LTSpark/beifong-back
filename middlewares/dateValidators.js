@@ -133,9 +133,7 @@ const sanitizeDate = async ( req, res, next ) => {
     const currentDate = moment( new Date() );
     const startAttentionDate = moment( reqStartAttentionDate );
 
-    const difference = moment.duration( startAttentionDate.diff(currentDate) );
-
-    if ( difference.asMinutes() < 0 ) return customErrorResponse(res, "Past dates cannot be set to post Clinical Appointments");
+    if ( startAttentionDate.isBefore(currentDate) ) return customErrorResponse(res, "Past dates cannot be set to post Clinical Appointments");
 
     const { 
         startAttentionTime : clinicStartAttentionTime,
@@ -197,9 +195,6 @@ const notMedicAppointmentsOnAttentionDate = async ( req, res, next ) => {
 
         currentStartAttentionDate = moment(currentStartAttentionDate);
         currentEndAttentionDate = moment(currentEndAttentionDate);
-
-        console.log({ currentStartAttentionDate, currentEndAttentionDate, startAttentionDate, endAttentionDate });
-        console.log(startAttentionDate.isBetween(currentStartAttentionDate, currentEndAttentionDate), endAttentionDate.isBetween(currentStartAttentionDate, currentEndAttentionDate))
 
         if ( startAttentionDate.isSame(currentStartAttentionDate)  || endAttentionDate.isSame(currentEndAttentionDate) ) {
             return clinicalAppointment;

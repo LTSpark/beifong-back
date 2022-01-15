@@ -130,7 +130,7 @@ const sanitizeDate = async ( req, res, next ) => {
 
     const dateString = reqStartAttentionDate.split(" ")[0];
 
-    const currentDate = moment( new Date() );
+    const currentDate = moment().utc().valueOf();
     const startAttentionDate = moment( reqStartAttentionDate );
 
     if ( startAttentionDate.isBefore(currentDate) ) return customErrorResponse(res, "Past dates cannot be set to post Clinical Appointments");

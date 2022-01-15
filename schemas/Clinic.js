@@ -4,7 +4,7 @@ const ClinicPaymentSchema = require('./ClinicPayment');
 const ClinicSectionSchema = require('./ClinicSection');
 const AccesibilityConfigSchema = require('./AccesibilityConfig');
 
-const days = ["monday", "tuesday", "wednesday", "thursday", "friday", "saturday"];
+const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 
 const ClinicSchema = Schema({
     name: {

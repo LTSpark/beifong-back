@@ -56,7 +56,7 @@ const ClinicSchema = Schema({
     },
     slogan: {
         type: String,
-        minLength: 25,
+        minLength: 15,
         maxLength: 125
     },
     subSlogan: {

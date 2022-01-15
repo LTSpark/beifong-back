@@ -1,4 +1,5 @@
 const moment = require("moment");
+const momentTimezone = require("moment-timezone");
 
 const ClinicService = require("../services/clinic.service");
 const MedicService = require("../services/medic.service");
@@ -130,7 +131,7 @@ const sanitizeDate = async ( req, res, next ) => {
 
     const dateString = reqStartAttentionDate.split(" ")[0];
 
-    const currentDate = moment();
+    const currentDate = momentTimezone.tz("America/Lima");
     const startAttentionDate = moment( reqStartAttentionDate );
 
     console.log(currentDate, startAttentionDate)

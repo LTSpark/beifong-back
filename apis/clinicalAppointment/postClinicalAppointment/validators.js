@@ -1,7 +1,7 @@
 const { body } = require("express-validator");
 
 const { fieldValidation } = require("../../../middlewares/fieldValidation");
-const { clinicExists } = require("../../../middlewares/clinicValidators");
+const { clinicExists, clinicInformationIsUpdated } = require("../../../middlewares/clinicValidators");
 const { medicExists, medicClinicExists, medicIsUpdated } = require("../../../middlewares/medicValidators");
 const { authPatientToken, authVerifiedPatient } = require("../../../middlewares/authentication");
 const { sanitizeDate, notMedicAppointmentsOnAttentionDate, validClinicalAppointmentDay } = require("../../../middlewares/dateValidators");
@@ -11,6 +11,7 @@ const PostClinicalAppointmentValidators = [
     authVerifiedPatient,
     body("clinicId").isMongoId(),
     body("clinicId").custom(clinicExists),
+    body("clinicId").custom(clinicInformationIsUpdated),
     body("medicId").isMongoId(),
     body("medicId").custom(medicExists),
     body("medicId").custom(medicIsUpdated),

@@ -46,6 +46,13 @@ const authSubscribedClinic = ( req, res, next ) => {
     next();
 }
 
+const authUpdatedClinic = ( req, res, next ) => {
+    if ( req.clinic.attentionDays.length == 0  && !req.clinic.startAttentionTime && !req.clinic.endAttentionTime ) {
+        return customErrorResponse(res, `Clinic attention times are not updated yet`, 403);
+    }
+    next();
+}
+
 const authPatientToken = async ( req, res, next ) => {
 
     const authHeader = req.header("Authorization");
@@ -114,6 +121,7 @@ module.exports = {
     authClinicToken,
     authVerifiedClinic,
     authSubscribedClinic,
+    authUpdatedClinic,
     authPatientToken,
     authVerifiedPatient,
     authMedicToken,

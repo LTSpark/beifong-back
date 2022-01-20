@@ -44,11 +44,19 @@ const clinicEmailExists = async email => {
     }
 }
 
+const clinicInformationIsUpdated = async clinicId => {
+    const clinic = await ClinicService.findById(clinicId);
+    if ( clinic.attentionDays.length == 0 && !clinic.startAttentionTime && !clinic.endAttentionTime ) {
+        throw new Error(`Clinic attention times are not updated yet`);
+    }
+}
+
 module.exports = {
     uniqueClinicName,
     uniqueClinicEmail,
     clinicExists,
     alreadyVerifiedClinic,
     alreadyVerifiedClinicToken,
-    clinicEmailExists
+    clinicEmailExists,
+    clinicInformationIsUpdated
 }

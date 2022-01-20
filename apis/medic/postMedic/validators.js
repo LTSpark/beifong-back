@@ -1,6 +1,6 @@
 const { body } = require("express-validator");
 
-const { authClinicToken, authVerifiedClinic, authSubscribedClinic } = require("../../../middlewares/authentication");
+const { authClinicToken, authVerifiedClinic, authSubscribedClinic, authUpdatedClinic } = require("../../../middlewares/authentication");
 const { imgValidator } = require("../../../middlewares/fileValidators");
 const { fieldValidation } = require("../../../middlewares/fieldValidation");
 const { medicDniExists, medicEmailExists } = require("../../../middlewares/medicValidators");
@@ -9,6 +9,7 @@ const PostMedicValidators = [
     authClinicToken,
     authVerifiedClinic,
     authSubscribedClinic,
+    authUpdatedClinic,
     body("name").isLength({ min: 2, max: 50 }).trim(),
     body("surname").isLength({ min: 2, max: 50 }).trim(),
     body(

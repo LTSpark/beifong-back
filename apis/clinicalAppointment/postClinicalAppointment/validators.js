@@ -4,7 +4,7 @@ const { fieldValidation } = require("../../../middlewares/fieldValidation");
 const { clinicExists } = require("../../../middlewares/clinicValidators");
 const { medicExists, medicClinicExists, medicIsUpdated } = require("../../../middlewares/medicValidators");
 const { authPatientToken, authVerifiedPatient } = require("../../../middlewares/authentication");
-const { sanitizeDate, notMedicAppointmentsOnAttentionDate } = require("../../../middlewares/dateValidators");
+const { sanitizeDate, notMedicAppointmentsOnAttentionDate, validClinicalAppointmentDay } = require("../../../middlewares/dateValidators");
 
 const PostClinicalAppointmentValidators = [
     authPatientToken,
@@ -19,6 +19,7 @@ const PostClinicalAppointmentValidators = [
     ),
     fieldValidation,
     medicClinicExists,
+    validClinicalAppointmentDay,
     sanitizeDate,
     notMedicAppointmentsOnAttentionDate
 ];

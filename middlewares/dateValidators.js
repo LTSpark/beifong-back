@@ -215,6 +215,19 @@ const notMedicAppointmentsOnAttentionDate = async ( req, res, next ) => {
 
 }
 
+const validClinicalAppointmentDay = async ( req, res, next ) => {
+
+    const { startAttentionDate, clinicId } = req.body;
+
+    const desiredAttentionDay = moment( startAttentionDate ).format("dddd");
+
+    const { attentionDays }= await ClinicService.findById(clinicId);
+    if ( !attentionDays.includes(desiredAttentionDay) ) return customErrorResponse(res, `Clinic does not give attention on ${desiredAttentionDay}`);
+
+    next();
+
+}
+
 module.exports = {
     optionalValidateHourMinutes,
     optionalValidateWeekDay,
@@ -222,5 +235,6 @@ module.exports = {
     validMedicAttentionTimeClinic,
     sanitizeDate,
     notMedicAppointmentsOnAttentionDate,
+    validClinicalAppointmentDay,
     weekDays
 }

@@ -11,7 +11,7 @@ const VerifyClinicFlow = async ( req, res ) => {
 
         const { id } = getJWTPayload(verifyToken, process.env.VERIFY_KEY);
 
-        // Corrección: Esta función debe tener un await, sino de generarse un error igual verifica la clínica
+        // TODO: Esta función debe tener un await, sino de generarse un error igual verifica la clínica.
         ClinicService.updateClinicById(id, { verified: true });
 
         // Create token

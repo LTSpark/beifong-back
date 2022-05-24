@@ -5,6 +5,8 @@ const MedicService = require("../services/medic.service");
 const { customErrorResponse, errorResponse } = require("../utils/responses");
 const { getJWTPayload } = require("../utils/utils");
 
+// Corrección: Se debe modularizar el proceso de autenticación para las distintas entidades pues el código en clínica, médico y paciente es el mismo
+
 const authClinicToken = async(req, res, next) => {
     const authHeader = req.header("Authorization");
     if(!authHeader){
